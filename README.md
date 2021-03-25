@@ -1,1 +1,1 @@
-"# Dernek PROJES˜" 
+Python Dernek Projesi

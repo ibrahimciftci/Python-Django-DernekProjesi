@@ -12,12 +12,15 @@ class NewsAdmin(admin.ModelAdmin):
 #   list_filter = ['status']
 
 class ContentAdmin(admin.ModelAdmin):
-    list_display = ['title', 'detail','news']
+    list_display = ['title', 'detail','news', 'image_tag']
+    readonly_fields = ('image_tag',)
     list_filter = ['news']
     inlines = [ContentImageInline]
 
+
 class ImagesAdmin(admin.ModelAdmin):
-    list_display = ['title', 'content', 'image']
+    list_display = ['title', 'content', 'image_tag']
+    readonly_fields = ('image_tag',)
 
 
 admin.site.register(News, NewsAdmin)

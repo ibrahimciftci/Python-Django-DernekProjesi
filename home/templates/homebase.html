@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+         {% load static %}
+
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <title>{% block title %} Safranbolu Yardımlaşma Derneği {% endblock %}</title>
+        <meta name="keywords" content="{% block keywords %} Anasayfa anahtar kelimeler {% endblock %}">
+        <meta name="description" content="{% block description %} Anasayfa kısa açıklama {% endblock %}">
+
+
+        <!-- Favicon -->
+        <link href="img/favicon.ico" rel="icon">
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
+
+
+        <!-- CSS Libraries -->
+       <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="../../static/lib/slick/slick.css" rel="stylesheet">
+        <link href="../../static/lib/slick/slick-theme.css" rel="stylesheet">
+
+
+
+        <!-- Template Stylesheet -->
+        <link href="css/style.css" rel="stylesheet">
+
+
+        {% block head %}  {% endblock %}
+</head>
+<body>
+
+        {% include 'header.html' %}
+
+        {% block sidebar %}
+        {% endblock %}
+
+        {% block slider %}
+        {% endblock %}
+
+        {% block content %}
+        {% endblock %}
+
+        {% include 'footer.html' %}
+
+        {% block foot %}
+        {% endblock %}
+
+</body>
+</html>

@@ -3,27 +3,30 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from home.models import Setting, ContactFormMessage, ContactFormu
+from content.models import Content
 
 
 def index(request):
     setting = Setting.objects.get(pk=1)
-    context = {'setting' : setting, 'page' : 'home'}
+    sliderdata = Content.objects.all()[:4]
+    context = {'setting': setting,
+               'page': 'home',
+               'sliderdata':sliderdata}
     return render(request, 'index.html', context)
+
 
 def hakkimizda(request):
     setting = Setting.objects.get(pk=1)
-    context = {'setting' : setting, 'page' : 'hakkimizda'}
+    context = {'setting': setting, 'page': 'hakkimizda'}
     return render(request, 'hakkimizda.html', context)
+
 
 def referanslar(request):
     setting = Setting.objects.get(pk=1)
-    context = {'setting' : setting, 'page' : 'referanslar'}
+    context = {'setting': setting, 'page': 'referanslar'}
     return render(request, 'referanslar.html', context)
 
-def iletisim(request):
-    setting = Setting.objects.get(pk=1)
-    context = {'setting' : setting, 'page' : 'iletisim'}
-    return render(request, 'iletisim.html', context)
+
 
 def iletisim(request):
     if request.method == 'POST':
@@ -42,4 +45,3 @@ def iletisim(request):
     form = ContactFormu()
     context = {'setting': setting, 'form': form}
     return render(request, 'iletisim.html', context)
-

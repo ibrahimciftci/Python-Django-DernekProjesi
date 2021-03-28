@@ -27,7 +27,7 @@ urlpatterns = [
     path('referanslar/', views.referanslar, name='referanslar'),
     path('iletisim/', views.iletisim, name='iletisim'),
     path('home/', include('home.urls')),
-    path('news/', include('news.urls')),
+    path('content/', include('content.urls')),
     path('admin/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ]

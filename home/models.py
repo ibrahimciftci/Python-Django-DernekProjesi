@@ -3,7 +3,6 @@ from django.db import models
 from django.forms import ModelForm, TextInput, Textarea
 
 
-
 class Setting(models.Model):
     STATUS = (
         ('True', 'Evet'),

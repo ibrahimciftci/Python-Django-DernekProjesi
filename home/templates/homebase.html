@@ -5,9 +5,9 @@
 
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <title>{% block title %} Safranbolu Yardımlaşma Derneği {% endblock %}</title>
-        <meta name="keywords" content="{% block keywords %} Anasayfa anahtar kelimeler {% endblock %}">
-        <meta name="description" content="{% block description %} Anasayfa kısa açıklama {% endblock %}">
+        <title>{% block title %} {{ setting.company }} {% endblock %}</title>
+        <meta name="keywords" content="{% block keywords %} {{ setting.keywords }}{% endblock %}">
+        <meta name="description" content="{% block description %} {{ setting.description }} {% endblock %}">
 
 
         <!-- Favicon -->
@@ -36,7 +36,6 @@
 
         {% block slider-sidebar %}
         {% endblock %}
-
 
         {% block content %}
         {% endblock %}

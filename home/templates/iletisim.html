@@ -23,13 +23,44 @@
             </div>
         </div>
         <!-- Breadcrumb End -->
-    <br> <br>
-    <div class="section">
-        <div class="container">
-            <div class="row">
-                {{ setting.contact | safe }}
+
+
+        <!-- Contact Start -->
+        <div class="contact">
+            <div class="container-fluid">
+                <div class="row ">
+                    <div class="col-lg-8">
+                         {{ setting.contact | safe }}
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="contact-form">
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="alert alert-{{message.tags}}" role="alert">
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                <input type="submit" value="SEND FORM">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="contact-map">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d23994.208086449158!2d32.66242447594643!3d41.259325884725165!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x409caac51abbad83%3A0x6b7db3ac7a87e93d!2sSafranbolu%2C%20Karab%C3%BCk!5e0!3m2!1str!2str!4v1616944261788!5m2!1str!2str" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+
+
+
+
+
 {% endblock %}
 

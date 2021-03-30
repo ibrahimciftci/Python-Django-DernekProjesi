@@ -1,5 +1,7 @@
+from unicodedata import category
+
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 
 from home.models import Setting, ContactFormMessage, ContactFormu
@@ -10,6 +12,7 @@ def index(request):
     setting = Setting.objects.get(pk=1)
     sliderdata = Content.objects.all()[:4]
     context = {'setting': setting,
+               'category': category,
                'page': 'home',
                'sliderdata':sliderdata}
     return render(request, 'index.html', context)
@@ -19,6 +22,7 @@ def hakkimizda(request):
     setting = Setting.objects.get(pk=1)
     context = {'setting': setting, 'page': 'hakkimizda'}
     return render(request, 'hakkimizda.html', context)
+
 
 
 def referanslar(request):

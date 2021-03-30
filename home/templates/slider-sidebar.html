@@ -8,30 +8,43 @@
                 <nav class="navbar bg-light">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa fa-home"></i>Home</a>
+                            <a class="nav-link" href="#"><i class="fa fa-home"></i>Başkan</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa fa-shopping-bag"></i>Best Selling</a>
+                            <a class="nav-link" href="#"><i class="fa fa-shopping-bag"></i>Yönetim Kurulu</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa fa-plus-square"></i>New Arrivals</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa fa-female"></i>Fashion & Beauty</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa fa-child"></i>Kids & Babies Clothes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa fa-tshirt"></i>Men & Women Clothes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa fa-mobile-alt"></i>Gadgets & Accessories</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa fa-microchip"></i>Electronics & Accessories</a>
-                        </li>
-                    </ul>
+                            <a class="nav-link" data-toggle="dropdown" aria-expanded="true" href="#"><i class="fa fa-plus-square"></i>{{ node.title }}</a>
+                        <li>{% load mptt_tags %}
+                            <ul>
+                                {% recursetree category %}
+                                <li>
+
+                                    {% if not node.is_leaf_node %}
+                                    <ul class="children">
+                                        <li><a href="#">{{ children }}</a></li>
+                                    </ul>
+                                    {% endif %}
+                                    <hr class="hidden-md hidden-lg">
+                                </li>
+                                {% endrecursetree %}
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#"><i class="fa fa-female"></i>Üyeler</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#"><i class="fa fa-child"></i>Etkinlikler</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#"><i class="fa fa-tshirt"></i>Safranbolu Kültürü</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#"><i class="fa fa-mobile-alt"></i>Gez-Gör-Eğlen</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#"><i class="fa fa-microchip"></i>Esnaf ve İş Adamlarımız</a>
+                                </li>
+                            </ul>
                 </nav>
             </div>
 

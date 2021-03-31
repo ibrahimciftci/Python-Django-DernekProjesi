@@ -21,11 +21,6 @@
 <div class="nav">
     <div class="container-fluid">
         <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-            <a href="#" class="navbar-brand">MENU</a>
-            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <div class="navbar-nav mr-auto">
                     <a href="/" class="nav-item nav-link active">ANASAYFA</a>
@@ -33,8 +28,31 @@
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">HAKKIMIZDA</a>
                         <div class="dropdown-menu">
                             <a href="/hakkimizda" class="dropdown-item">Tarihçemiz</a>
-                            <a href="/yönetim_kadrosu" class="dropdown-item">Yönetim Kadrosu</a>
-                            <a href="/gönüllü_ekiplerimiz" class="dropdown-item">Gönüllü Ekiplerimiz</a>
+                            <a href="/yonetim_kadrosu" class="dropdown-item">Yönetim Kadrosu</a>
+                            <a href="/gonullu_ekiplerimiz" class="dropdown-item">Gönüllü Ekiplerimiz</a>
+                        </div>
+                    </div>
+
+                     <li>{% load mptt_tags %}
+                            <ul>
+                                {% recursetree category %}
+                                <li>
+                                    <a href="/category/{{ node.id }}/{{ node.slug }}">{{ node.title }} </a>
+                                    {% if not node.is_leaf_node %}
+                                    <ul class="children">
+                                        <a href="/category/{{ node.slug }}"> {{ children }} </a>
+                                    </ul>
+                                    {% endif %}
+                                </li>
+                                {% endrecursetree %}
+                            </ul>
+                        </li>
+                    <div class="nav-item dropdown">
+
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">DUYURULAR</a>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item">Duyurular</a>
+                            <a href="#" class="dropdown-item">Haberler</a>
                         </div>
                     </div>
                     <a href="/referanslar" class="nav-item nav-link">REFERANSLAR</a>

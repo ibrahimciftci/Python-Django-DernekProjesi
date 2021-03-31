@@ -17,7 +17,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 class ContentAdmin(admin.ModelAdmin):
-    list_display = ['title', 'detail', 'image_tag']
+    list_display = ['title', 'detail', 'category', 'image_tag']
     readonly_fields = ('image_tag',)
     inlines = [ContentImageInline]
 

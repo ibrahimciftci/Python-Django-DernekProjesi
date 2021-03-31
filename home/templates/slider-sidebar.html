@@ -14,20 +14,8 @@
                             <a class="nav-link" href="#"><i class="fa fa-shopping-bag"></i>Yönetim Kurulu</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="dropdown" aria-expanded="true" href="#"><i class="fa fa-plus-square"></i>{{ node.title }}</a>
-                        <li>{% load mptt_tags %}
-                            <ul>
-                                {% recursetree category %}
-                                <li>
-
-                                    {% if not node.is_leaf_node %}
-                                    <ul class="children">
-                                        <li><a href="#">{{ children }}</a></li>
-                                    </ul>
-                                    {% endif %}
-                                    <hr class="hidden-md hidden-lg">
-                                </li>
-                                {% endrecursetree %}
+                            <a class="nav-link" data-toggle="dropdown" aria-expanded="true" href="/contens"><i
+                                    class="fa fa-plus-square"></i>Duyurular</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#"><i class="fa fa-female"></i>Üyeler</a>
@@ -45,6 +33,8 @@
                                     <a class="nav-link" href="#"><i class="fa fa-microchip"></i>Esnaf ve İş Adamlarımız</a>
                                 </li>
                             </ul>
+                        </li>
+                    </ul>
                 </nav>
             </div>
 

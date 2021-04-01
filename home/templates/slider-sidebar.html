@@ -11,10 +11,10 @@
                             {% load mptt_tags %}
                             {% recursetree category %}
                         <li>
-                            <a href=""><i class="fa "></i><strong>{{ node.title }}</strong></a>
+                            <a href="/category/{{ node.id }}/{{ node.slug }}"><i class="fa "></i><strong>{{ node.title }}</strong></a>
                             {% if not node.is_leaf_node %}
                             <ul class="children" style="list-style-type:none">
-                                <li><a href="#"><i class="fa "></i>{{ children }}</a></li>
+                                <li><a href="/category/{{ node.slug }}"><i class="fa "></i>{{ children }}</a></li>
                             </ul>
                             {% endif %}
                         </li>

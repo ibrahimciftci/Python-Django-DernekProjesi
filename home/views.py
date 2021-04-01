@@ -9,10 +9,9 @@ from content.models import Content, Category
 
 
 def index(request):
-    setting = Setting.objects.all()
+    setting = Setting.objects.get()
     sliderdata = Content.objects.all()[:4]
     category = Category.objects.all()
-
     context = {'setting': setting,
                'category': category,
                'page': 'home',
@@ -21,14 +20,14 @@ def index(request):
 
 
 def hakkimizda(request):
-    setting = Setting.objects.all()
-    context = {'setting': setting}
+    setting = Setting.objects.get()
+    context = {'setting': setting, 'page': 'hakkimizda'}
     return render(request, 'hakkimizda.html', context)
 
 
 
 def referanslar(request):
-    setting = Setting.objects.all()
+    setting = Setting.objects.get()
     context = {'setting': setting, 'page': 'referanslar'}
     return render(request, 'referanslar.html', context)
 
@@ -47,15 +46,16 @@ def iletisim(request):
             data.save()
             messages.success(request, "Mesajiniz basariyla gonderildi.")
             return HttpResponseRedirect('/iletisim')
-    setting = Setting.objects.all()
+    setting = Setting.objects.get()
     form = ContactFormu()
     context = {'setting': setting, 'form': form}
     return render(request, 'iletisim.html', context)
 
 def category_contents(request,id,slug):
     category = Category.objects.all()
-    contents = Content.objects.filter(content_id=id)
+    categorydata = Category.objects.get(pk=id)
+    contents = Content.objects.filter(category_id=id)
     context = {'contents' : contents,
                'category': category,
-              }
-    return render(request, 'contents.html', context)
+               'categorydata' : categorydata}
+    return render(request, 'content-list.html', context)

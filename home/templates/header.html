@@ -32,41 +32,11 @@
                             <a href="/gonullu_ekiplerimiz" class="dropdown-item">Gönüllü Ekiplerimiz</a>
                         </div>
                     </div>
-
-                     <li>{% load mptt_tags %}
-                            <ul>
-                                {% recursetree category %}
-                                <li>
-                                    <a href="/category/{{ node.id }}/{{ node.slug }}">{{ node.title }} </a>
-                                    {% if not node.is_leaf_node %}
-                                    <ul class="children">
-                                        <a href="/category/{{ node.slug }}"> {{ children }} </a>
-                                    </ul>
-                                    {% endif %}
-                                </li>
-                                {% endrecursetree %}
-                            </ul>
-                        </li>
-                    <div class="nav-item dropdown">
-
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">DUYURULAR</a>
-                        <div class="dropdown-menu">
-                            <a href="#" class="dropdown-item">Duyurular</a>
-                            <a href="#" class="dropdown-item">Haberler</a>
-                        </div>
-                    </div>
                     <a href="/referanslar" class="nav-item nav-link">REFERANSLAR</a>
                     <a href="/hizmetlerimiz" class="nav-item nav-link">HİZMETLERİMİZ</a>
                     <a href="/blog" class="nav-item nav-link">BLOG</a>
                     <a href="/galeri" class="nav-item nav-link">GALERİ</a>
                     <a href="/iletisim" class="nav-item nav-link">İLETİŞİM</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">BAĞIŞ & AİDAT</a>
-                        <div class="dropdown-menu">
-                            <a href="/bagis" class="dropdown-item">Bağış</a>
-                            <a href="/aidat" class="dropdown-item">Aidat</a>
-                        </div>
-                    </div>
                 </div>
                 <div class="navbar-nav ml-auto">
                     <div class="nav-item dropdown">

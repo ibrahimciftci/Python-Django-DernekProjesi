@@ -11,6 +11,8 @@ from content.models import Content, Category
 def index(request):
     setting = Setting.objects.all()
     sliderdata = Content.objects.all()[:4]
+    category = Category.objects.all()
+
     context = {'setting': setting,
                'category': category,
                'page': 'home',
@@ -20,7 +22,7 @@ def index(request):
 
 def hakkimizda(request):
     setting = Setting.objects.all()
-    context = {'setting': setting, 'page': 'hakkimizda'}
+    context = {'setting': setting}
     return render(request, 'hakkimizda.html', context)
 
 

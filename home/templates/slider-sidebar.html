@@ -1,45 +1,44 @@
 {% load static %}
-
+{% load mptt_tags %}
 <!-- Main Slider Start -->
 <div class="header">
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
-            <div class="col-md-3">
-                <nav class="navbar bg-light">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa fa-home"></i>Başkan</a>
+            <div class="col-md-4">
+                <nav>
+                    <ul class="mcd-menu" >
+                        <li>
+                            {% load mptt_tags %}
+                            {% recursetree category %}
+                        <li>
+                            <a href=""><i class="fa "></i><strong>{{ node.title }}</strong></a>
+                            {% if not node.is_leaf_node %}
+                            <ul class="children" style="list-style-type:none">
+                                <li><a href="#"><i class="fa "></i>{{ children }}</a></li>
+                            </ul>
+                            {% endif %}
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa fa-shopping-bag"></i>Yönetim Kurulu</a>
+                        {% endrecursetree %}
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="dropdown" aria-expanded="true" href="/contens"><i
-                                    class="fa fa-plus-square"></i>Duyurular</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#"><i class="fa fa-female"></i>Üyeler</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#"><i class="fa fa-child"></i>Etkinlikler</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#"><i class="fa fa-tshirt"></i>Safranbolu Kültürü</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#"><i class="fa fa-mobile-alt"></i>Gez-Gör-Eğlen</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#"><i class="fa fa-microchip"></i>Esnaf ve İş Adamlarımız</a>
-                                </li>
+
+
+                        <li>
+                            <a href="">
+                                <i class="fa fa-envelope-o"></i>
+                                <strong>Bağış & Aidat</strong>
+                            </a>
+                            <ul style="list-style-type:none">
+                                <li><a href="#"><i class="fa "></i>Bağış</a></li>
+                                <li><a href="#"><i class="fa "></i>Aidat</a></li>
                             </ul>
                         </li>
+
                     </ul>
                 </nav>
             </div>
 
 
-            <div class="col-md-9" align="center">
+            <div class="col-md-8" align="center">
                 <button class="slick-prev slick-arrow" aria-label="Previous" type="button" style="">Previous</button>
                 <div class="header-slider normal-slider">  <!-- slider burada çalışıyor -->
 

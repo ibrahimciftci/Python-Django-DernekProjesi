@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 
 from home.models import Setting, ContactFormMessage, ContactFormu
-from content.models import Content, Category
+from content.models import Content, Category, Images
 
 
 def index(request):
@@ -57,5 +57,16 @@ def category_contents(request,id,slug):
     contents = Content.objects.filter(category_id=id)
     context = {'contents' : contents,
                'category': category,
-               'categorydata' : categorydata}
+               'categorydata' : categorydata
+               }
     return render(request, 'content-list.html', context)
+
+def content_detail(request,id,slug):
+    category = Category.objects.all()
+    content = Content.objects.get(pk=id)
+    images = Images.objects.filter(content_id=id)
+    context = {'content': content,
+               'category': category,
+               'images' : images
+              }
+    return render(request, 'content_detail.html', context)

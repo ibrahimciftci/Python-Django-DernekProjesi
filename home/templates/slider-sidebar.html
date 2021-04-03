@@ -6,12 +6,13 @@
         <div class="row">
             <div class="col-md-4">
                 <nav>
-                    <ul class="mcd-menu" >
+                    <ul class="mcd-menu">
                         <li>
                             {% load mptt_tags %}
                             {% recursetree category %}
                         <li>
-                            <a href="/category/{{ node.id }}/{{ node.slug }}"><i class="fa "></i><strong>{{ node.title }}</strong></a>
+                            <a href="/category/{{ node.id }}/{{ node.slug }}"><i class="fa "></i><strong>{{ node.title
+                                }}</strong></a>
                             {% if not node.is_leaf_node %}
                             <ul class="children" style="list-style-type:none">
                                 <li><a href="/category/{{ node.slug }}"><i class="fa "></i>{{ children }}</a></li>
@@ -21,21 +22,10 @@
                         {% endrecursetree %}
                         </li>
 
-
-                        <li>
-                            <a href="">
-                                <i class="fa fa-envelope-o"></i>
-                                <strong>Bağış & Aidat</strong>
-                            </a>
-                            <ul style="list-style-type:none">
-                                <li><a href="#"><i class="fa "></i>Bağış</a></li>
-                                <li><a href="#"><i class="fa "></i>Aidat</a></li>
-                            </ul>
-                        </li>
-
                     </ul>
                 </nav>
             </div>
+
 
 
             <div class="col-md-8" align="center">

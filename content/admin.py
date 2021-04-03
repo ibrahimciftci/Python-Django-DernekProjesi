@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 from mptt.admin import MPTTModelAdmin, DraggableMPTTAdmin
 
-from content.models import Category, Content, Images
+from content.models import Category, Content, Images, Comment
 
 
 class ContentImageInline(admin.TabularInline):
@@ -17,7 +17,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 class ContentAdmin(admin.ModelAdmin):
-    list_display = ['title',  'category', 'image_tag']
+    list_display = ['title', 'category', 'image_tag']
     readonly_fields = ('image_tag',)
     inlines = [ContentImageInline]
 
@@ -55,13 +55,21 @@ class CategoryAdmin2(DraggableMPTTAdmin):
 
     def related_contents_count(self, instance):
         return instance.contents_count
+
     related_contents_count.short_description = 'Related contents (for this specific category)'
 
     def related_contents_cumulative_count(self, instance):
         return instance.contents_cumulative_count
+
     related_contents_cumulative_count.short_description = 'Related contents (in tree)'
+
+
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ['subject', 'comment', 'content', 'user', 'status']
+    list_filter = ['status']
 
 
 admin.site.register(Category, CategoryAdmin2)
 admin.site.register(Content, ContentAdmin)
 admin.site.register(Images, ImagesAdmin)
+admin.site.register(Comment, CommentAdmin)

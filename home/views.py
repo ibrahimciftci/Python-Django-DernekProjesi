@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 
 from home.models import Setting, ContactFormMessage, ContactFormu
-from content.models import Content, Category, Images
+from content.models import Content, Category, Images, Comment
 
 
 def index(request):
@@ -15,7 +15,7 @@ def index(request):
     context = {'setting': setting,
                'category': category,
                'page': 'home',
-               'sliderdata':sliderdata}
+               'sliderdata': sliderdata}
     return render(request, 'index.html', context)
 
 
@@ -25,12 +25,10 @@ def hakkimizda(request):
     return render(request, 'hakkimizda.html', context)
 
 
-
 def referanslar(request):
     setting = Setting.objects.get()
     context = {'setting': setting, 'page': 'referanslar'}
     return render(request, 'referanslar.html', context)
-
 
 
 def iletisim(request):
@@ -51,22 +49,26 @@ def iletisim(request):
     context = {'setting': setting, 'form': form}
     return render(request, 'iletisim.html', context)
 
-def category_contents(request,id,slug):
+
+def category_contents(request, id, slug):
     category = Category.objects.all()
     categorydata = Category.objects.get(pk=id)
     contents = Content.objects.filter(category_id=id)
-    context = {'contents' : contents,
+    context = {'contents': contents,
                'category': category,
-               'categorydata' : categorydata
+               'categorydata': categorydata
                }
     return render(request, 'content-list.html', context)
 
-def content_detail(request,id,slug):
+
+def content_detail(request, id, slug):
     category = Category.objects.all()
     content = Content.objects.get(pk=id)
     images = Images.objects.filter(content_id=id)
+    comments = Comment.objects.filter(content_id=id, status='True')
     context = {'content': content,
                'category': category,
-               'images' : images
-              }
+               'images': images,
+               'comments': comments,
+               }
     return render(request, 'content_detail.html', context)

@@ -1,4 +1,6 @@
+from django.contrib.auth.models import User
 from django.db import models
+from django.forms import ModelForm
 from django.utils.safestring import mark_safe
 from ckeditor_uploader.fields import RichTextUploadingField
 from mptt.models import MPTTModel, TreeForeignKey
@@ -30,10 +32,8 @@ class Category(MPTTModel):
         k = self.parent
         while k is not None:
             full_path.append(k.title)
-            k= k.parent
-        return ' / ' .join(full_path[::-1])
-
-
+            k = k.parent
+        return ' / '.join(full_path[::-1])
 
 
 class Content(models.Model):
@@ -57,8 +57,8 @@ class Content(models.Model):
 
     def image_tag(self):
         return mark_safe('<img src="{}" height="50" />'.format(self.image.url))
-    image_tag.short_description = 'Image'
 
+    image_tag.short_description = 'Image'
 
 
 class Images(models.Model):
@@ -73,3 +73,29 @@ class Images(models.Model):
         return mark_safe('<img src="{}" height="50" />'.format(self.image.url))
 
     image_tag.short_description = 'Image'
+
+
+class Comment(models.Model):
+    STATUS = (
+        ('New', 'Yeni'),
+        ('True', 'Evet'),
+        ('False', 'Hayir'),
+    )
+    content = models.ForeignKey(Content, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    subject = models.CharField(max_length=50)
+    comment = models.TextField(max_length=200, blank=True)
+    rate = models.IntegerField(blank=True)
+    status = models.CharField(max_length=10, choices=STATUS, default='New')
+    ip = models.CharField(blank=True, max_length=20)
+    create_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
+
+    def _str_(self):
+        return self.subject
+
+
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['subject', 'comment', 'rate']

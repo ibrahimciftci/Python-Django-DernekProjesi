@@ -15,7 +15,7 @@
     <div class="container-fluid">
         <ul class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Anasayfa</a></li>
-            <li class="breadcrumb-item"><a href="/content-list.html"> {{ categorydata.keywords }} </a></li>
+            <li class="breadcrumb-item"><a href="#"> {{ categorydata.keywords }} </a></li>
         </ul>
     </div>
 </div>
@@ -90,7 +90,7 @@
                                 </div>
                             </div>
                             <div class="product-image">
-                                <a href="product-detail.html">
+                                <a href="/content/{{ rs.id }}/{{ rs.slug }}">
                                     <img src="{{ rs.image.url }}" alt="Product Image">
                                 </a>
 

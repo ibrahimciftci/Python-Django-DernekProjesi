@@ -129,9 +129,7 @@
                                         </div>
                                     </div>
                                     {% endfor %}
-
                                     <div class="row form">
-
                                         {% if messages %}
                                         {% for message in messages %}
                                         <div class="alert alert-{{ message.tags }}" role="alert">
@@ -139,18 +137,15 @@
                                         </div>
                                         {% endfor %}
                                         {% endif %}
-
                                         <form class="review-form" action="/content/addcomment/{{ content.id }}"
-                                              method="post">
+                                              method="POST">
                                             {% csrf_token %}
-
                                             <div class="col-sm-6">
-                                                 <input type="text" placeholder="Konu"></input>
+                                                <input type="text" placeholder="Konu"></input>
                                             </div>
                                             <div class="col-sm-12">
                                                 <textarea placeholder="Yorum Yap" rows="15" cols="50"></textarea>
                                             </div>
-
                                             {% if user.id is not None %}
                                             <div class="col-sm-12">
                                                 <button>Gönder</button>

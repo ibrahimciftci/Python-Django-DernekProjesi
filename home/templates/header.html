@@ -65,10 +65,13 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="search">
-                    <input type="text" placeholder="Search">
-                    <button><i class="fa fa-search"></i></button>
-                </div>
+                <form action="/search/" method="post">
+                    <div class="search">
+                        {% csrf_token %}
+                        <input type="text" placeholder="Search">
+                        <button><i class="fa fa-search"></i></button>
+                    </div>
+                </form>
             </div>
             <div class="col-md-3">
                 <div class="user">

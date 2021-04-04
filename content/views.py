@@ -8,7 +8,8 @@ from content.models import CommentForm, Comment
 
 
 def index(request):
-    return HttpResponse("Product Page")
+    return HttpResponse("Content Page")
+
 
 @login_required(login_url='/login')
 def addcomment(request, id):
@@ -26,8 +27,6 @@ def addcomment(request, id):
             data.ip = request.META.get('REMOTE_ADDR')
             data.save()
             messages.success(request, "Yorumunuz başarıyla gönderildi.")
-
             return HttpResponseRedirect(url)
-
     messages.warning(request, "Yorumunuz gönderilemedi. Lütfen kontrol ediniz.")
     return HttpResponseRedirect(url)

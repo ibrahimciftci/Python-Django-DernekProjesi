@@ -1,0 +1,47 @@
+{% extends "homebase.html" %}
+
+{% block title %} {{ setting.company }} {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
+
+{% block head %}
+<link rel='shortcut icon' type='image/x-icon' href='{{setting.icon.url}}'>
+{% endblock %}
+
+
+{% block content %}
+<!-- Breadcrumb Start -->
+<div class="breadcrumb-wrap">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Anasayfa</a></li>
+            <li class="breadcrumb-item"><a href="#">{{ categorydata.title }}</a></li>
+        </ul>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+<br> <br>
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <table cellpadding="3" width="1200">
+                <tr>
+                    <th>Image</th>
+                    <th>Content Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                </tr>
+                {% for rs in contents %}
+                    <tr>
+                        <td><a href="/content/{{ rs.id }}/{{ rs.slug }}"><img src="{{ rs.image.url }}" style="" alt=""></a></td>
+                        <td><h4 class="content-name"><a href="/content/{{ rs.id }}/{{ rs.slug }}"> {{ rs.title }} </a></h4></td>
+                        <td><a href="/category/{{ rs.category.id }}/{{ rs.category.slug }}">{{ rs.category }}</a></td>
+                        <td><h4>{{ rs.detail }}</h4></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

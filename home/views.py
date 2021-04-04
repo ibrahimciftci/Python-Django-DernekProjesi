@@ -6,7 +6,7 @@ from django.shortcuts import render
 
 from home.models import Setting, ContactFormMessage, ContactFormu
 from content.models import Content, Category, Images, Comment
-
+from home.forms import SearchForm
 
 def index(request):
     setting = Setting.objects.get()
@@ -72,3 +72,17 @@ def content_detail(request, id, slug):
                'comments': comments,
                }
     return render(request, 'content_detail.html', context)
+
+
+def content_search(request):
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            category = Category.objects.all()
+            query = form.cleaned_data['query']
+            contents = Content.objects.filter(title__icontains=query)
+            context = {'contents': contents,
+                       'category': category,
+                       }
+            return render(request, 'contents_search.html', context)
+    return HttpResponseRedirect('/')

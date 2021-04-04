@@ -1,13 +1,28 @@
 {% load static %}
 
-
 <div class="container">
     <div class="row">
         <div class="col-md-4">
-            {% block sidebar %} {% endblock %}
+            <nav>
+                <ul class="mcd-menu">
+                    <li>
+                        {% load mptt_tags %}
+                        {% recursetree category %}
+                    <li>
+                        <a href="/category/{{ node.id }}/{{ node.slug }}"><i class="fa "></i><strong>{{ node.title }}</strong></a>
+                        {% if not node.is_leaf_node %}
+                        <ul class="children" style="list-style-type:none">
+                            <li><a href="/category/{{ node.slug }}"><i class="fa "></i>{{ children }}</a></li>
+                        </ul>
+                        {% endif %}
+                    </li>
+                    {% endrecursetree %}
+                    </li>
+                </ul>
+            </nav>
         </div>
         <div class="col-md-8" align="center">
-            <button class="slick-prev slick-arrow" aria-label="Previous" type="button" style="">Previous</button>
+             <button class="slick-prev slick-arrow" aria-label="Previous" type="button" style="">Previous</button>
             <div class="header-slider normal-slider">  <!-- slider burada çalışıyor -->
 
                 {% for rs in sliderdata %}
@@ -28,3 +43,4 @@
         </div>
     </div>
 </div>
+

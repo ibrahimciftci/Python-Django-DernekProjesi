@@ -85,7 +85,6 @@ class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     subject = models.CharField(max_length=50)
     comment = models.TextField(max_length=200, blank=True)
-    rate = models.IntegerField(blank=True)
     status = models.CharField(max_length=10, choices=STATUS, default='New')
     ip = models.CharField(blank=True, max_length=20)
     create_at = models.DateTimeField(auto_now_add=True)
@@ -98,4 +97,4 @@ class Comment(models.Model):
 class CommentForm(ModelForm):
     class Meta:
         model = Comment
-        fields = ['subject', 'comment', 'rate']
+        fields = ['subject', 'comment']

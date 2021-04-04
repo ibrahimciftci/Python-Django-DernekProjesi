@@ -23,7 +23,6 @@ def addcomment(request, id):
             data.content_id = id
             data.subject = form.cleaned_data['subject']
             data.comment = form.cleaned_data['comment']
-            data.rate = form.cleaned_data['rate']
             data.ip = request.META.get('REMOTE_ADDR')
             data.save()
             messages.success(request, "Yorumunuz başarıyla gönderildi.")

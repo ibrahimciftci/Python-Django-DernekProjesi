@@ -26,17 +26,17 @@
         <div class="row">
             <table cellpadding="3" width="1200">
                 <tr>
-                    <th>Image</th>
-                    <th>Content Name</th>
-                    <th>Category</th>
-                    <th>Price</th>
+                    <th>Fotoğraf</th>
+                    <th>İçerik Adı</th>
+                    <th>Kategori</th>
+                    <th>Açıklama</th>
                 </tr>
                 {% for rs in contents %}
                     <tr>
-                        <td><a href="/content/{{ rs.id }}/{{ rs.slug }}"><img src="{{ rs.image.url }}" style="" alt=""></a></td>
+                        <td><a href="/content/{{ rs.id }}/{{ rs.slug }}"><img src="{{ rs.image.url }}" style="height:150px; weight:150px" alt=""></a></td>
                         <td><h4 class="content-name"><a href="/content/{{ rs.id }}/{{ rs.slug }}"> {{ rs.title }} </a></h4></td>
                         <td><a href="/category/{{ rs.category.id }}/{{ rs.category.slug }}">{{ rs.category }}</a></td>
-                        <td><h4>{{ rs.detail }}</h4></td>
+                        <td><h4>{{ rs.detail | safe }}</h4></td>
                     </tr>
                 {% endfor %}
             </table>

@@ -53,6 +53,25 @@
 </div>
 <!-- Nav Bar End -->
 
+<script>
+    $(function(){
+        $("#query").autocomplete({
+            source: "/search_auto/",
+            select: function(event,ui){
+                AutoCompleteSelectHandler(event,ui)
+            },
+            minLength: 2,
+        });
+    });
+
+    function AutoCompleteSelectHandler(event,ui)
+    {
+        var selectedObj = ui.item;
+    }
+
+
+</script>
+
 <!-- Bottom Bar Start -->
 <div class="bottom-bar">
     <div class="container-fluid">
@@ -60,7 +79,7 @@
             <div class="col-md-3">
                 <div class="logo">
                     <a href="index.html">
-                        <img src=" {% static 'img/logo.png' %} " alt="Logo">
+                        <img src=" {% static 'img/logo1.png' %} " alt="Logo">
                     </a>
                 </div>
             </div>
@@ -68,7 +87,21 @@
                 <form action="/search/" method="post">
                     {% csrf_token %}
                     <div class="search">
-                        <input name="query" class="input search-input" type="text" placeholder="Search">
+                        <input id="query" name="query" class="input search-input" type="text" placeholder="Search">
+                        {% load mptt_tags %}
+                        <select name="catid" class="input search-categories">
+                            <option value="0">Tüm Kategoriler</option>
+                            {% recursetree category %}
+                            {% if node.is_leaf_node %}
+                            <option value="{{ node.id }}">{{ node.title }}</option>
+                            {% endif %}
+                            {% if not node.is_leaf_node %}
+                            <optgroup label="{{ node.title }}">
+                                {{ children }}
+                            </optgroup>
+                            {% endif %}
+                            {% endrecursetree %}
+                        </select>
                         <button><i class="fa fa-search"></i></button>
                     </div>
                 </form>

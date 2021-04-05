@@ -18,8 +18,9 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class ContentAdmin(admin.ModelAdmin):
     list_display = ['title', 'category', 'image_tag']
-    readonly_fields = ('image_tag',)
+    readonly_fields = ('image_tag','catimg_tag',)
     inlines = [ContentImageInline]
+    prepopulated_fields = {'slug': ('title',)}
 
 
 class ImagesAdmin(admin.ModelAdmin):

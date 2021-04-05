@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.forms import ModelForm
+from django.urls import reverse
 from django.utils.safestring import mark_safe
 from ckeditor_uploader.fields import RichTextUploadingField
 from mptt.models import MPTTModel, TreeForeignKey
@@ -35,6 +36,14 @@ class Category(MPTTModel):
             k = k.parent
         return ' / '.join(full_path[::-1])
 
+    def image_tag(self):
+        return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
+
+    image_tag.short_description = 'Image'
+
+    def get_absolute_url(self):
+        return reverse('category_detail', kwargs={'slug': self.slug})
+
 
 class Content(models.Model):
     STATUS = (
@@ -59,6 +68,12 @@ class Content(models.Model):
         return mark_safe('<img src="{}" height="50" />'.format(self.image.url))
 
     image_tag.short_description = 'Image'
+
+    def catimg_tag(self):
+        return mark_safe((Category.status))
+
+    def get_absolute_url(self):
+        return reverse('content_detail', kwargs={'slug': self.slug})
 
 
 class Images(models.Model):

@@ -2,6 +2,7 @@ import json
 from unicodedata import category
 
 from django.contrib import messages
+from django.contrib.auth import logout, authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 
@@ -108,3 +109,27 @@ def content_search_auto(request):
         data = 'fail'
     mimetype = 'application/json'
     return HttpResponse(data, mimetype)
+
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect('/')
+
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return HttpResponseRedirect('/')
+        else:
+            messages.error(request, "Giriş Yapılamadı. Kullanıcı adı veya Parola hatalı!")
+            return HttpResponseRedirect('/login')
+
+    category = Category.objects.all()
+    context = {
+        'category': category,
+    }
+    return render(request, 'login.html', context)

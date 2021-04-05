@@ -38,15 +38,26 @@
                     <a href="/galeri" class="nav-item nav-link">GALERİ</a>
                     <a href="/iletisim" class="nav-item nav-link">İLETİŞİM</a>
                 </div>
+                <!-- Account start-->
                 <div class="navbar-nav ml-auto">
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Kullanıcı Hesabı</a>
+                        {% if user.id is not None %}
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ user.username }}</a>
                         <div class="dropdown-menu">
-                            <a href="/login" class="dropdown-item">Giriş Yap</a>
-                            <a href="/kaydol" class="dropdown-item">Kayıt Ol</a>
+                            <a href="/kaydol" class="dropdown-item">Hesabım</a>
+                            <a href="/logout" class="dropdown-item">Çıkış</a>
                         </div>
+                        {% else %}
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Kullanıcı İşlemleri</a>
+                        <div class="dropdown-menu">
+                            <a href="/login" class="dropdown-item">Giriş</a>
+                            <a href="/join" class="dropdown-item">Kaydol</a>
+                        </div>
+
+                        {% endif %}
                     </div>
                 </div>
+                <!-- Account end -->
             </div>
         </nav>
     </div>
@@ -68,7 +79,6 @@
     {
         var selectedObj = ui.item;
     }
-
 
 </script>
 

@@ -1,0 +1,60 @@
+{% extends "homebase.html" %}
+
+{% block title %} {{ setting.company }} {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
+
+{% block head %}
+<link rel='shortcut icon' type='image/x-icon' href='{{setting.icon.url}}'>
+{% endblock %}
+
+
+{% block content %}
+<!-- Breadcrumb Start -->
+<div class="breadcrumb-wrap">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Anasayfa</a></li>
+            <li class="breadcrumb-item"><a href="#">Kaydol</a></li>
+
+        </ul>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+
+
+<!-- Contact Start -->
+<div class="contact">
+    <div class="container-fluid">
+        <div class="row">
+            <form action="" method="post">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}" role="alert">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% csrf_token %}
+                {% for field in form %}
+                <p>
+                    {{ field.label_tag }}<br>
+                    {{ field }}
+                    {% if field.help_text %}
+                    <small style="color:grey">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% for error in field.errors %}
+                <p style="color:red">{{ error }}</p>
+                {% endfor %}
+                </p>
+                {% endfor %}
+                <button type="submit">Kaydol</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+

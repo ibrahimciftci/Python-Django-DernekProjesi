@@ -8,7 +8,7 @@ from django.shortcuts import render
 
 from home.models import Setting, ContactFormMessage, ContactFormu
 from content.models import Content, Category, Images, Comment
-from home.forms import SearchForm
+from home.forms import SearchForm, SignUpForm
 
 
 def index(request):
@@ -125,7 +125,7 @@ def login_view(request):
             login(request, user)
             return HttpResponseRedirect('/')
         else:
-            messages.error(request, "Giriş Yapılamadı. Kullanıcı adı veya Parola hatalı!")
+            messages.warning(request, "Giriş Yapılamadı. Kullanıcı adı veya Parola hatalı!")
             return HttpResponseRedirect('/login')
 
     category = Category.objects.all()
@@ -133,3 +133,23 @@ def login_view(request):
         'category': category,
     }
     return render(request, 'login.html', context)
+
+
+def signup_view(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return HttpResponseRedirect('/')
+
+    form = SignUpForm()
+    category = Category.objects.all()
+    context = {
+        'category': category,
+        'form': form,
+    }
+    return render(request, 'signup.html', context)

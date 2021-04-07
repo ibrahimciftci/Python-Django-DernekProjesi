@@ -121,7 +121,6 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/uploads/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 
-
 SITE_ID = 1
 
 ####################################

@@ -64,6 +64,21 @@ def change_password(request):
                       })
 
 
+@login_required(login_url='/login')
+def comments(request):
+    category = Category.objects.all()
+    current_user = request.user
+    comments = Comment.objects.filter(user_id=current_user.id)
+    context = {
+        'category': category,
+        'comments': comments,
+    }
+    return render(request, 'user_comments.html', context)
 
 
-
+@login_required(login_url='/login')
+def deletecomment(request,id):
+    current_user = request.user
+    Comment.objects.filter(id=id, user_id=current_user.id).delete()
+    messages.error(request, 'Comment deleted.')
+    return HttpResponseRedirect('/user/comments')

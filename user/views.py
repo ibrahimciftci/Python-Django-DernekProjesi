@@ -1,9 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
 from content.models import Category
 from home.models import UserProfile
+
 
 
 def index(request):
@@ -13,4 +15,6 @@ def index(request):
     context = {'category': category,
                'profile': profile,
                }
-    return render(request, 'user_profile.html',context)
+    return render(request, 'user_profile.html', context)
+
+

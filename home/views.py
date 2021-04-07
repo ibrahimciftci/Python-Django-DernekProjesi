@@ -6,7 +6,7 @@ from django.contrib.auth import logout, authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 
-from home.models import Setting, ContactFormMessage, ContactFormu
+from home.models import Setting, ContactFormMessage, ContactFormu, UserProfile
 from content.models import Content, Category, Images, Comment
 from home.forms import SearchForm, SignUpForm
 
@@ -144,6 +144,12 @@ def signup_view(request):
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
             login(request, user)
+            current_user = request.user
+            data = UserProfile()
+            data.user_id = current_user.id
+            data.image = "images/users/user.jpg"
+            data.save()
+            messages.success(request, "Üye Kaydınız Başarıyla Gerçekleşmiştir.")
             return HttpResponseRedirect('/')
 
     form = SignUpForm()

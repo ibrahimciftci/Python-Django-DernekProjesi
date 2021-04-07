@@ -42,9 +42,10 @@
                 <div class="navbar-nav ml-auto">
                     <div class="nav-item dropdown">
                         {% if user.id is not None %}
+
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ user.username }}</a>
                         <div class="dropdown-menu">
-                            <a href="/hesabım" class="dropdown-item">Hesabım</a>
+                            <a href="/user" class="dropdown-item">Hesabım</a>
                             <a href="/logout" class="dropdown-item">Çıkış</a>
                         </div>
                         {% else %}
@@ -80,6 +81,7 @@
         var selectedObj = ui.item;
     }
 
+
 </script>
 
 <!-- Bottom Bar Start -->
@@ -101,7 +103,7 @@
                         {% load mptt_tags %}
                         <select name="catid" class="input search-categories">
                             <option value="0">Tüm Kategoriler</option>
-                          <!-- endrecursetree category gelmeli -->
+                            <!-- endrecursetree category gelmeli -->
                             {% if node.is_leaf_node %}
                             <option value="{{ node.id }}">{{ node.title }}</option>
                             {% endif %}

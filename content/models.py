@@ -56,6 +56,7 @@ class Content(models.Model):
     description = models.CharField(max_length=255)
     image = models.ImageField(blank=True, upload_to='images/')
     detail = RichTextUploadingField()
+    type = models.CharField(max_length=255)
     slug = models.SlugField(null=False, unique=True)
     status = models.CharField(max_length=10, choices=STATUS)
     create_at = models.DateTimeField(auto_now_add=True)

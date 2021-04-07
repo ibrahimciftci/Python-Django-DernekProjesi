@@ -1,0 +1,57 @@
+{% extends "homebase.html" %}
+
+{% block title %} {{ setting.company }} {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
+
+{% block head %}
+<link rel='shortcut icon' type='image/x-icon' href='{{setting.icon.url}}'>
+{% endblock %}
+
+
+{% block content %}
+<!-- Breadcrumb Start -->
+<div class="breadcrumb-wrap">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Anasayfa</a></li>
+            <li class="breadcrumb-item"><a href="#">Bilgileri Güncelle</a></li>
+
+        </ul>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+
+<div class="my-account">
+    <div class="container-fluid">
+        <div class="row">
+             <div class="col-md-3">
+                {% include "user_panel.html" %}
+            </div>
+            <div class="col-md-9">
+
+                            <div class="media">
+                                <img src="{{ user.userprofile.image.url }}" width="200" height="200">
+                            </div>
+                            <br>
+                                <form method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <fieldset class="form-group">
+                                        {{ user_form.as_p }}
+                                        {{ profile_form.as_p }}
+                                    </fieldset>
+                                    <div class="form-group">
+                                        <button type="submit" class="primary-btn">Update Info</button>
+                                    </div>
+                                </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+    {% endblock %}
+

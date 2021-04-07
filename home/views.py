@@ -77,6 +77,13 @@ def content_detail(request, id, slug):
     return render(request, 'content_detail.html', context)
 
 
+def contentsOfPages_detail(request, id, slug):
+    category = Category.objects.all()
+    content = Content.objects.filter (category_id=id)
+    link = '/content/'+str(content[0].id)+'/'+content[0].slug
+    return HttpResponseRedirect(link)
+
+
 def content_search(request):
     if request.method == 'POST':
         form = SearchForm(request.POST)

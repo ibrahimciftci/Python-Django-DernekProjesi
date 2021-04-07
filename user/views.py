@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import PasswordChangeForm
-from content.models import Category
+from content.models import Category, Comment
 from home.models import UserProfile
 from user.forms import ProfileUpdateForm, UserUpdateForm
 
@@ -41,14 +41,15 @@ def user_update(request):
         }
         return render(request, 'user_update.html', context)
 
+
 @login_required(login_url='/login')
 def change_password(request):
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             user = form.save()
-            update_session_auth_hash(request,user)
-            messages.success(request,'Parola güncelleme başarılı')
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Parola güncelleme başarılı')
             return HttpResponseRedirect('/user')
         else:
             messages.success(request, 'Please correct the error below.<br>' + str(form.errors))
@@ -56,8 +57,13 @@ def change_password(request):
     else:
         category = Category.objects.all()
         form = PasswordChangeForm(request.user)
-        return render(request,'change_password.html',
-        {
-            'form':form,
-            'category':category
-        })
+        return render(request, 'change_password.html',
+                      {
+                          'form': form,
+                          'category': category
+                      })
+
+
+
+
+

@@ -5,10 +5,10 @@ from django.contrib import messages
 from django.contrib.auth import logout, authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
-
 from home.models import Setting, ContactFormMessage, ContactFormu, UserProfile
 from content.models import Content, Category, Images, Comment
 from home.forms import SearchForm, SignUpForm
+
 
 
 def index(request):
@@ -75,13 +75,6 @@ def content_detail(request, id, slug):
                'comments': comments,
                }
     return render(request, 'content_detail.html', context)
-
-
-def contentsOfPages_detail(request, id, slug):
-    category = Category.objects.all()
-    content = Content.objects.filter (category_id=id)
-    link = '/content/'+str(content[0].id)+'/'+content[0].slug
-    return HttpResponseRedirect(link)
 
 
 def content_search(request):
@@ -166,3 +159,6 @@ def signup_view(request):
         'form': form,
     }
     return render(request, 'signup.html', context)
+
+
+

@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import PasswordChangeForm
-from content.models import Category, Comment
+from content.models import Category, Comment, Content, ContentForm
 from home.models import UserProfile
 from user.forms import ProfileUpdateForm, UserUpdateForm
 
@@ -77,8 +77,50 @@ def comments(request):
 
 
 @login_required(login_url='/login')
-def deletecomment(request,id):
+def deletecomment(request, id):
     current_user = request.user
     Comment.objects.filter(id=id, user_id=current_user.id).delete()
     messages.error(request, 'Comment deleted.')
     return HttpResponseRedirect('/user/comments')
+
+
+@login_required(login_url='/login')
+def contents(request):
+    category = Category.objects.all()
+    current_user = request.user
+    contents = Content.objects.all()
+    context = {
+        'category': category,
+        'contents': contents,
+    }
+    return render(request, 'user_contents.html', context)
+
+
+@login_required(login_url='/login')
+def addcontent(request):
+    if request.method == 'POST':
+        form = ContentForm(request.POST, request.FILES)
+        if form.is_valid():
+            current_user = request.user
+            data = Content()
+            data.user_id = current_user.id
+            data.title = form.cleaned_data['title']
+            data.keywords = form.cleaned_data['keywords']
+            data.description = form.cleaned_data['description']
+            data.image = form.cleaned_data['image']
+            data.type = form.cleaned_data['type']
+            data.slug = form.cleaned_data['slug']
+            data.detail = form.cleaned_data['detail']
+            data.status = 'False'
+            data.save()
+            return HttpResponseRedirect('/user/contents')
+        else:
+            return HttpResponseRedirect('/user/addcontent')
+    else:
+        category = Category.objects.all()
+        form = ContentForm()
+        context = {
+            'category': category,
+            'form': form,
+        }
+        return render(request, 'user_addcontent.html', context)

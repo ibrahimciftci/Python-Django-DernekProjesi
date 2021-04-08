@@ -33,7 +33,6 @@ urlpatterns = [
     path('iletisim/', views.iletisim, name='iletisim'),
     path('category/<int:id>/<slug:slug>/', views.category_contents, name='category_contents'),
     path('content/<int:id>/<slug:slug>/', views.content_detail, name='content_detail'),
-    path('contentsOfPages/<int:id>/<slug:slug>/', views.contentsOfPages_detail, name='contentsOfPages_detail'),
     path('search/', views.content_search, name='content_search'),
     path('search_auto/', views.content_search_auto, name='content_search_auto'),
     path('logout/', views.logout_view, name='logout_view'),

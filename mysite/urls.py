@@ -29,6 +29,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('hakkimizda/', views.hakkimizda, name='hakkimizda'),
+    path('hizmetlerimiz/', views.hizmetlerimiz, name='hizmetlerimiz'),
     path('referanslar/', views.referanslar, name='referanslar'),
     path('iletisim/', views.iletisim, name='iletisim'),
     path('category/<int:id>/<slug:slug>/', views.category_contents, name='category_contents'),
@@ -38,6 +39,8 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout_view'),
     path('login/', views.login_view, name='login_view'),
     path('signup/', views.signup_view, name='signup_view'),
+    path('sss/', views.faq, name='faq'),
+
 
 ]
 

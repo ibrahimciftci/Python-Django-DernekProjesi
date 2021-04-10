@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth import logout, authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
-from home.models import Setting, ContactFormMessage, ContactFormu, UserProfile
+from home.models import Setting, ContactFormMessage, ContactFormu, UserProfile, FAQ
 from content.models import Content, Category, Images, Comment
 from home.forms import SearchForm, SignUpForm
 
@@ -29,6 +29,15 @@ def hakkimizda(request):
         'category': category,
         'page': 'hakkimizda'}
     return render(request, 'hakkimizda.html', context)
+
+def hizmetlerimiz(request):
+    setting = Setting.objects.get()
+    category = Category.objects.all()
+    context = {
+        'setting': setting,
+        'category': category,
+        'page': 'hizmetlerimiz'}
+    return render(request, 'hizmetlerimiz.html', context)
 
 
 def referanslar(request):
@@ -66,10 +75,12 @@ def iletisim(request):
 
 def category_contents(request, id, slug):
     category = Category.objects.all()
+    setting = Setting.objects.get()
     categorydata = Category.objects.get(pk=id)
     contents = Content.objects.filter(category_id=id)
     context = {'contents': contents,
                'category': category,
+               'setting' : setting,
                'categorydata': categorydata
                }
     return render(request, 'content-list.html', context)
@@ -78,12 +89,14 @@ def category_contents(request, id, slug):
 def content_detail(request, id, slug):
     category = Category.objects.all()
     content = Content.objects.get(pk=id)
+    setting = Setting.objects.get()
     images = Images.objects.filter(content_id=id)
     comments = Comment.objects.filter(content_id=id, status='True')
     context = {'content': content,
                'category': category,
                'images': images,
                'comments': comments,
+               'setting' : setting
                }
     return render(request, 'content_detail.html', context)
 
@@ -93,6 +106,7 @@ def content_search(request):
         form = SearchForm(request.POST)
         if form.is_valid():
             category = Category.objects.all()
+            setting = Setting.objects.get()
             query = form.cleaned_data['query']
             catid = form.cleaned_data['catid']
             if catid == 0:
@@ -101,6 +115,7 @@ def content_search(request):
                 contents = Content.objects.filter(title__icontains=query, category_id=catid)
             context = {'contents': contents,
                        'category': category,
+                       'setting' : setting
                        }
             return render(request, 'contents_search.html', context)
     return HttpResponseRedirect('/')
@@ -140,8 +155,10 @@ def login_view(request):
             return HttpResponseRedirect('/login')
 
     category = Category.objects.all()
+    setting = Setting.objects.get()
     context = {
         'category': category,
+        'setting' : setting
     }
     return render(request, 'login.html', context)
 
@@ -165,8 +182,21 @@ def signup_view(request):
 
     form = SignUpForm()
     category = Category.objects.all()
+    setting = Setting.objects.get()
     context = {
+        'setting' : setting,
         'category': category,
         'form': form,
     }
     return render(request, 'signup.html', context)
+
+def faq(request):
+    setting = Setting.objects.get()
+    category = Category.objects.all()
+    faq = FAQ.objects.all().order_by('ordernumber')
+    context = {
+        'setting' : setting,
+        'category': category,
+        'faq': faq,
+    }
+    return render(request, 'faq.html', context)

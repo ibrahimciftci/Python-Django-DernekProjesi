@@ -1,12 +1,16 @@
 {% extends "homebase.html" %}
 
 {% block title %}  {{ setting.company }}  {% endblock %}
-{% block keywords %} {{ setting.keywords }} {% endblock %}
-{% block description %} {{ setting.description }} {% endblock %}
+{% block keywords %}  {% endblock %}
+{% block description %}  {% endblock %}
 
 {% block head %}
 <link rel='shortcut icon' type='image/x-icon' href='{{setting.icon.url}}'>
-
+<script>
+  $( function() {
+    $( "#accordion" ).accordion();
+  } );
+</script>
 {% endblock %}
 
 
@@ -16,7 +20,7 @@
     <div class="container-fluid">
         <ul class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Anasayfa</a></li>
-            <li class="breadcrumb-item"><a href="#">Hakkımızda</a></li>
+            <li class="breadcrumb-item"><a href="#">Sıkça Sorulan Sorular</a></li>
         </ul>
     </div>
 </div>
@@ -25,9 +29,18 @@
 <div class="section">
     <div class="container">
         <div class="row">
-            {{ setting.aboutus | safe }}
+            <div id="accordion">
+                {% for rs in faq %}
+                <h3>{{ rs.question }}</h3>
+                <div>
+                    <p>
+                        {{ rs.answer }}
+                    </p>
+                </div>
+                {% endfor %}
+
+            </div>
         </div>
     </div>
-</div>
-{% endblock %}
+    {% endblock %}
 

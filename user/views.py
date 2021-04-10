@@ -4,18 +4,20 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import PasswordChangeForm
-from content.models import Category, Comment, Content, ContentForm
-from home.models import UserProfile
+from content.models import Category, Comment, Content, ContentForm, ContentImageForm, CImages
+from home.models import UserProfile, Setting
 from user.forms import ProfileUpdateForm, UserUpdateForm
 
 
 @login_required(login_url='/login')
 def index(request):
     category = Category.objects.all()
+    setting = Setting.objects.get()
     current_user = request.user
     profile = UserProfile.objects.get(user_id=current_user.id)
     context = {'category': category,
                'profile': profile,
+               'setting' : setting
                }
     return render(request, 'user_profile.html', context)
 
@@ -31,12 +33,14 @@ def user_update(request):
             return redirect('/user')
     else:
         category = Category.objects.all()
+        setting = Setting.objects.get()
         user_form = UserUpdateForm(instance=request.user)
         profile_form = ProfileUpdateForm(instance=request.user.userprofile)
         context = {
             'category': category,
             'user_form': user_form,
             'profile_form': profile_form,
+            'setting' : setting
 
         }
         return render(request, 'user_update.html', context)
@@ -56,22 +60,26 @@ def change_password(request):
             return HttpResponseRedirect('/user/password')
     else:
         category = Category.objects.all()
+        setting = Setting.objects.get()
         form = PasswordChangeForm(request.user)
         return render(request, 'change_password.html',
                       {
                           'form': form,
-                          'category': category
+                          'category': category,
+                          'setting' : setting
                       })
 
 
 @login_required(login_url='/login')
 def comments(request):
     category = Category.objects.all()
+    setting = Setting.objects.get()
     current_user = request.user
     comments = Comment.objects.filter(user_id=current_user.id)
     context = {
         'category': category,
         'comments': comments,
+        'setting' : setting
     }
     return render(request, 'user_comments.html', context)
 
@@ -87,11 +95,13 @@ def deletecomment(request, id):
 @login_required(login_url='/login')
 def contents(request):
     category = Category.objects.all()
+    setting = Setting.objects.get()
     current_user = request.user
     contents = Content.objects.all()
     context = {
         'category': category,
         'contents': contents,
+        'setting' : setting
     }
     return render(request, 'user_contents.html', context)
 
@@ -118,10 +128,12 @@ def addcontent(request):
             return HttpResponseRedirect('/user/addcontent')
     else:
         category = Category.objects.all()
+        setting = Setting.objects.get()
         form = ContentForm()
         context = {
             'category': category,
             'form': form,
+            'setting' : setting
         }
         return render(request, 'user_addcontent.html', context)
 
@@ -129,11 +141,13 @@ def addcontent(request):
 @login_required(login_url='/login')
 def contents(request):
     category = Category.objects.all()
+    setting = Setting.objects.get()
     current_user = request.user
     contents = Content.objects.filter(user_id=current_user.id)
     context = {
         'category': category,
         'contents': contents,
+        'setting' : setting
     }
     return render(request, 'user_contents.html', context)
 
@@ -150,10 +164,12 @@ def contentedit(request, id):
             return HttpResponseRedirect('/user/contentedit/' + str(id))
     else:
         category = Category.objects.all()
+        setting = Setting.objects.get()
         form = ContentForm(instance=content)
         context = {
             'category': category,
             'form': form,
+            'setting' : setting
         }
         return render(request, 'user_addcontent.html', context)
 
@@ -163,3 +179,28 @@ def contentdelete(request, id):
     current_user = request.user
     Content.objects.filter(id=id, user_id=current_user.id).delete()
     return HttpResponseRedirect('/user/contents')
+
+
+def contentaddimage(request, id):
+    if request.method == 'POST':
+        lasturl = request.META.get('HTTP_REFERER')
+        form = ContentImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            data = CImages()
+            data.title = form.cleaned_data['title']
+            data.content_id = id
+            data.image = form.cleaned_data['image']
+            data.save()
+            return HttpResponseRedirect(lasturl)
+        else:
+            return HttpResponseRedirect(lasturl)
+    else:
+        content = Content.objects.get(id=id)
+        images = CImages.objects.filter(content_id=id)
+        form = ContentImageForm()
+    context = {
+        'content': content,
+        'form': form,
+        'images': images,
+    }
+    return render(request, 'content_gallery.html', context)

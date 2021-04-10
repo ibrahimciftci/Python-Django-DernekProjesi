@@ -31,7 +31,7 @@
             <div class="col-md-9">
                 <div class="tab-content">
                     <div class="section-title">
-                        <button><a class="primary-btn" href="/user/addcontent">Add Content</a> </button>
+                        <button><a class="primary-btn" href="/user/addcontent">Add Content</a></button>
                     </div>
                     <div class="tab-pane fade show active" id="orders-tab" role="tabpanel" aria-labelledby="orders-nav">
                         <div class="table-responsive">
@@ -41,18 +41,19 @@
                                 <tr>
                                     <th>Image</th>
                                     <th>Title</th>
-                                    <th>Type</th>
+                                    <th>Galeri</th>
                                     <th>Category</th>
                                     <th>Status</th>
                                     <th>Date</th>
-                                    <th>Detail</th>
                                 </tr>
                                 {% for rs in contents %}
                                 <tr>
-                                    <td><a href="/content/{{ rs.content_id }}/{{ rs.content.slug }}"><img
-                                            src="{{ rs.image.url }}" width="100px" height="80px"></a></td>
-                                    <td><a href="/content/{{ rs.content_id }}/{{ rs.content.slug }}"><strong>{{ rs.title }}</strong></a></td>
-                                    <td>{{ rs.type }}</td>
+                                    <td><img
+                                            src="{{ rs.image.url }}" width="100px" height="80px"></td>
+                                    <td>{{ rs.title }}</td>
+                                    <td><a href="javascript:;"
+                                           onclick="window.open('user/contentaddimage/{{ rs.id }}', 'galeri', 'height=600,width=800,top=50,left=150')">Galeri</a>
+                                    </td>
                                     <td>{{ rs.category.title }}</td>
                                     <td>{{ rs.status }}</td>
                                     <td>{{ rs.create_at }}</td>

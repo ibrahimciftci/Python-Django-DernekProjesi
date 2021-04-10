@@ -41,14 +41,18 @@
 <body>
 {% include 'header.html' %}
 
-
-{% block slider %}
-{% endblock %}
-
+<div>
+    {% block slider %}
+    {% endblock %}
+</div>
+<br><br>
+<div>
 {% block content %}
 {% endblock %}
-
+</div>
+<div>
 {% include 'footer.html' %}
+</div>
 
 {% block foot %}
 {% endblock %}

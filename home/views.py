@@ -14,10 +14,17 @@ def index(request):
     setting = Setting.objects.get()
     sliderdata = Content.objects.all()[:]
     category = Category.objects.all()
+    news = Content.objects.filter(type='haber').order_by('-id')[:]
+    announcements = Content.objects.filter(type='duyuru').order_by('-id')[:]
+    etkinlik = Content.objects.filter(type='etkinlik').order_by('-id')[:]
     context = {'setting': setting,
                'category': category,
                'page': 'home',
-               'sliderdata': sliderdata}
+               'sliderdata': sliderdata,
+               'news': news,
+               'announcements': announcements,
+               'etkinlik': etkinlik,
+               }
     return render(request, 'index.html', context)
 
 

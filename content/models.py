@@ -48,12 +48,19 @@ class Category(MPTTModel):
 
 
 class Content(models.Model):
+    TYPE = (
+        ('haber', 'haber'),
+        ('duyuru', 'duyuru'),
+        ('etkinlik', 'etkinlik'),
+
+    )
     STATUS = (
         ('True', 'Evet'),
         ('False', 'Hayır'),
     )
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    type = models.CharField(max_length=10, choices=TYPE)
     title = models.CharField(max_length=150)
     keywords = models.CharField(max_length=255)
     description = models.CharField(max_length=255)

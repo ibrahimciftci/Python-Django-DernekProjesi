@@ -48,13 +48,6 @@ class Category(MPTTModel):
 
 
 class Content(models.Model):
-    TYPE = (
-        ('menu', 'menu'),
-        ('haber', 'haber'),
-        ('duyuru', 'duyuru'),
-        ('etkinlik', 'etkinlik'),
-
-    )
     STATUS = (
         ('True', 'Evet'),
         ('False', 'Hayır'),
@@ -66,7 +59,6 @@ class Content(models.Model):
     description = models.CharField(max_length=255)
     image = models.ImageField(blank=True, upload_to='images/')
     detail = RichTextUploadingField()
-    type = models.CharField(max_length=10, choices=TYPE)
     slug = models.SlugField(null=False, unique=True)
     status = models.CharField(max_length=10, choices=STATUS)
     create_at = models.DateTimeField(auto_now_add=True)
@@ -85,6 +77,7 @@ class Content(models.Model):
 
     def get_absolute_url(self):
         return reverse('content_detail', kwargs={'slug': self.slug})
+
 
 
 class Images(models.Model):
@@ -129,15 +122,15 @@ class CommentForm(ModelForm):
 class ContentForm(ModelForm):
     class Meta:
         model = Content
-        fields = ['type', 'title', 'slug', 'keywords', 'description', 'image', 'detail']
+        fields = ['category', 'title', 'slug', 'keywords', 'description', 'image', 'detail']
         widgets = {
             'title': TextInput(attrs={'class': 'input', 'placeholder': 'title'}),
             'slug': TextInput(attrs={'class': 'input', 'placeholder': 'slug'}),
             'keywords': TextInput(attrs={'class': 'input', 'placeholder': 'keywords'}),
             'description': TextInput(attrs={'class': 'input', 'placeholder': 'description'}),
-            'type': Select(attrs={'class': 'input', 'placeholder': 'city'}, choices=TYPE),
+            'category': Select(attrs={'class': 'input', 'placeholder': 'city'}),
             'image': FileInput(attrs={'class': 'input', 'placeholder': 'image'}),
-            # 'detail' : CKEditorWidget(),
+            'detail': CKEditorWidget(),
 
         }
 

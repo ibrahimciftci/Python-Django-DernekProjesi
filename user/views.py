@@ -108,7 +108,7 @@ def addcontent(request):
             data.keywords = form.cleaned_data['keywords']
             data.description = form.cleaned_data['description']
             data.image = form.cleaned_data['image']
-            data.type = form.cleaned_data['type']
+            data.category = form.cleaned_data['category']
             data.slug = form.cleaned_data['slug']
             data.detail = form.cleaned_data['detail']
             data.status = 'False'
@@ -124,3 +124,42 @@ def addcontent(request):
             'form': form,
         }
         return render(request, 'user_addcontent.html', context)
+
+
+@login_required(login_url='/login')
+def contents(request):
+    category = Category.objects.all()
+    current_user = request.user
+    contents = Content.objects.filter(user_id=current_user.id)
+    context = {
+        'category': category,
+        'contents': contents,
+    }
+    return render(request, 'user_contents.html', context)
+
+
+@login_required(login_url='/login')
+def contentedit(request, id):
+    content = Content.objects.get(id=id)
+    if request.method == 'POST':
+        form = ContentForm(request.POST, request.FILES, instance=content)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/user/contents')
+        else:
+            return HttpResponseRedirect('/user/contentedit/' + str(id))
+    else:
+        category = Category.objects.all()
+        form = ContentForm(instance=content)
+        context = {
+            'category': category,
+            'form': form,
+        }
+        return render(request, 'user_addcontent.html', context)
+
+
+@login_required(login_url='/login')
+def contentdelete(request, id):
+    current_user = request.user
+    Content.objects.filter(id=id, user_id=current_user.id).delete()
+    return HttpResponseRedirect('/user/contents')

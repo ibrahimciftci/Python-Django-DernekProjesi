@@ -10,7 +10,6 @@ from content.models import Content, Category, Images, Comment
 from home.forms import SearchForm, SignUpForm
 
 
-
 def index(request):
     setting = Setting.objects.get()
     sliderdata = Content.objects.all()[:4]
@@ -24,13 +23,21 @@ def index(request):
 
 def hakkimizda(request):
     setting = Setting.objects.get()
-    context = {'setting': setting, 'page': 'hakkimizda'}
+    category = Category.objects.all()
+    context = {
+        'setting': setting,
+        'category': category,
+        'page': 'hakkimizda'}
     return render(request, 'hakkimizda.html', context)
 
 
 def referanslar(request):
     setting = Setting.objects.get()
-    context = {'setting': setting, 'page': 'referanslar'}
+    category = Category.objects.all()
+    context = {
+        'setting': setting,
+        'category': category,
+        'page': 'referanslar'}
     return render(request, 'referanslar.html', context)
 
 
@@ -48,8 +55,12 @@ def iletisim(request):
             messages.success(request, "Mesajiniz basariyla gonderildi.")
             return HttpResponseRedirect('/iletisim')
     setting = Setting.objects.get()
+    category = Category.objects.all()
     form = ContactFormu()
-    context = {'setting': setting, 'form': form}
+    context = {
+        'setting': setting,
+        'category': category,
+        'form': form}
     return render(request, 'iletisim.html', context)
 
 
@@ -159,6 +170,3 @@ def signup_view(request):
         'form': form,
     }
     return render(request, 'signup.html', context)
-
-
-

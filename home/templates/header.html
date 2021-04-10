@@ -46,7 +46,10 @@
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ user.username }}</a>
                         <div class="dropdown-menu">
                             <a href="/user" class="dropdown-item">Hesabım</a>
+                            <a href="/user/comments" class="dropdown-item">Yorumlarım</a>
+                            <a href="/user/contents" class="dropdown-item">İçeriklerim</a>
                             <a href="/logout" class="dropdown-item">Çıkış</a>
+
                         </div>
                         {% else %}
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Kullanıcı İşlemleri</a>
@@ -103,7 +106,7 @@
                         {% load mptt_tags %}
                         <select name="catid" class="input search-categories">
                             <option value="0">Tüm Kategoriler</option>
-                            <!-- endrecursetree category gelmeli -->
+                            {% recursetree category %}
                             {% if node.is_leaf_node %}
                             <option value="{{ node.id }}">{{ node.title }}</option>
                             {% endif %}
@@ -112,24 +115,13 @@
                                 {{ children }}
                             </optgroup>
                             {% endif %}
-                            <!-- endrecursetree gelmeli -->
+                            {% endrecursetree %}
                         </select>
                         <button><i class="fa fa-search"></i></button>
                     </div>
                 </form>
             </div>
-            <div class="col-md-3">
-                <div class="user">
-                    <a href="wishlist.html" class="btn wishlist">
-                        <i class="fa fa-heart"></i>
-                        <span>(0)</span>
-                    </a>
-                    <a href="cart.html" class="btn cart">
-                        <i class="fa fa-shopping-cart"></i>
-                        <span>(0)</span>
-                    </a>
-                </div>
-            </div>
+
         </div>
     </div>
 </div>

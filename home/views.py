@@ -12,7 +12,7 @@ from home.forms import SearchForm, SignUpForm
 
 def index(request):
     setting = Setting.objects.get()
-    sliderdata = Content.objects.all()[:4]
+    sliderdata = Content.objects.all()[:]
     category = Category.objects.all()
     context = {'setting': setting,
                'category': category,
@@ -81,7 +81,7 @@ def category_contents(request, id, slug):
     context = {'contents': contents,
                'category': category,
                'setting' : setting,
-               'categorydata': categorydata
+               'categorydata': categorydata,
                }
     return render(request, 'content-list.html', context)
 
@@ -96,7 +96,7 @@ def content_detail(request, id, slug):
                'category': category,
                'images': images,
                'comments': comments,
-               'setting' : setting
+               'setting' : setting,
                }
     return render(request, 'content_detail.html', context)
 
@@ -115,7 +115,7 @@ def content_search(request):
                 contents = Content.objects.filter(title__icontains=query, category_id=catid)
             context = {'contents': contents,
                        'category': category,
-                       'setting' : setting
+                       'setting' : setting,
                        }
             return render(request, 'contents_search.html', context)
     return HttpResponseRedirect('/')
@@ -158,7 +158,7 @@ def login_view(request):
     setting = Setting.objects.get()
     context = {
         'category': category,
-        'setting' : setting
+        'setting' : setting,
     }
     return render(request, 'login.html', context)
 
@@ -200,3 +200,13 @@ def faq(request):
         'faq': faq,
     }
     return render(request, 'faq.html', context)
+
+def error(request):
+    setting = Setting.objects.get()
+    category = Category.objects.all()
+    context = {
+        'setting': setting,
+        'category': category,
+    }
+    return render(request, 'error_page.html', context)
+

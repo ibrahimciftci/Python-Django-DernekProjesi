@@ -5,10 +5,11 @@
         <div class="col-md-4">
             <nav>
                 <ul class="mcd-menu">
-                        {% load mptt_tags %}
-                        {% recursetree category %}
+                    {% load mptt_tags %}
+                    {% recursetree category %}
                     <li>
-                        <a href="/category/{{ node.id }}/{{ node.slug }}"><i class="fa "></i><strong>{{ node.title }}</strong></a>
+                        <a href="/category/{{ node.id }}/{{ node.slug }}"><i class="fa "></i><strong>{{ node.title
+                            }}</strong></a>
                         {% if not node.is_leaf_node %}
                         <ul class="children" style="list-style-type:none">
                             <li><a href="/category/{{ node.slug }}"><i class="fa "></i>{{ children }}</a></li>
@@ -20,12 +21,12 @@
             </nav>
         </div>
         <div class="col-md-8" align="center">
-             <button class="slick-prev slick-arrow" aria-label="Previous" type="button" style="">Previous</button>
+            <button class="slick-prev slick-arrow" aria-label="Previous" type="button" style="">Previous</button>
             <div class="header-slider normal-slider">  <!-- slider burada çalışıyor -->
 
                 {% for rs in sliderdata %}
                 <div class="header-slider-item">
-                    <img src=" {{ rs.image.url }} " alt="Slider Image"/>
+                    <a href="/content/{{ rs.id }}/{{ rs.slug }}"><img src=" {{ rs.image.url }} " alt="Slider Image"/></a>
                     <div class="banner-caption text-center">
                         <h2>
                             {{ rs.title }}

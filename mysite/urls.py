@@ -32,6 +32,7 @@ urlpatterns = [
     path('hizmetlerimiz/', views.hizmetlerimiz, name='hizmetlerimiz'),
     path('referanslar/', views.referanslar, name='referanslar'),
     path('iletisim/', views.iletisim, name='iletisim'),
+    path('error/', views.error, name='error'),
     path('category/<int:id>/<slug:slug>/', views.category_contents, name='category_contents'),
     path('content/<int:id>/<slug:slug>/', views.content_detail, name='content_detail'),
     path('search/', views.content_search, name='content_search'),
@@ -40,7 +41,6 @@ urlpatterns = [
     path('login/', views.login_view, name='login_view'),
     path('signup/', views.signup_view, name='signup_view'),
     path('sss/', views.faq, name='faq'),
-
 
 ]
 

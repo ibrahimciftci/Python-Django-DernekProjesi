@@ -1,0 +1,33 @@
+{% extends "homebase.html" %}
+
+{% block title %}  {{ setting.company }}  {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
+
+{% block head %}
+<link rel='shortcut icon' type='image/x-icon' href='{{setting.icon.url}}'>
+
+{% endblock %}
+
+
+{% block content %}
+<!-- Breadcrumb Start -->
+<div class="breadcrumb-wrap">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Anasayfa</a></li>
+            <li class="breadcrumb-item"><a href="#">Hata</a></li>
+        </ul>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+<br> <br>
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <h1>ARADIĞINIZ İÇERİK BULUNAMADI<h1>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

@@ -6,14 +6,15 @@ from django.contrib.auth import logout, authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from home.models import Setting, ContactFormMessage, ContactFormu, UserProfile, FAQ
-from content.models import Content, Category, Images, Comment
+from content.models import Content, Category, Images, Comment, Menu, AnasayfaIcerik
 from home.forms import SearchForm, SignUpForm
 
 
 def index(request):
     setting = Setting.objects.get()
-    sliderdata = Content.objects.all()[:]
+    sliderdata = AnasayfaIcerik.objects.all()[:]
     category = Category.objects.all()
+    menu = Menu.objects.all()
     news = Content.objects.filter(type='haber').order_by('-id')[:]
     announcements = Content.objects.filter(type='duyuru').order_by('-id')[:]
     etkinlik = Content.objects.filter(type='etkinlik').order_by('-id')[:]
@@ -22,6 +23,7 @@ def index(request):
                'page': 'home',
                'sliderdata': sliderdata,
                'news': news,
+               'menu': menu,
                'announcements': announcements,
                'etkinlik': etkinlik,
                }
@@ -31,8 +33,10 @@ def index(request):
 def hakkimizda(request):
     setting = Setting.objects.get()
     category = Category.objects.all()
+    menu = Menu.objects.all()
     context = {
         'setting': setting,
+        'menu': menu,
         'category': category,
         'page': 'hakkimizda'}
     return render(request, 'hakkimizda.html', context)
@@ -40,8 +44,10 @@ def hakkimizda(request):
 def hizmetlerimiz(request):
     setting = Setting.objects.get()
     category = Category.objects.all()
+    menu = Menu.objects.all()
     context = {
         'setting': setting,
+        'menu': menu,
         'category': category,
         'page': 'hizmetlerimiz'}
     return render(request, 'hizmetlerimiz.html', context)
@@ -50,8 +56,10 @@ def hizmetlerimiz(request):
 def referanslar(request):
     setting = Setting.objects.get()
     category = Category.objects.all()
+    menu = Menu.objects.all()
     context = {
         'setting': setting,
+        'menu': menu,
         'category': category,
         'page': 'referanslar'}
     return render(request, 'referanslar.html', context)
@@ -72,9 +80,11 @@ def iletisim(request):
             return HttpResponseRedirect('/iletisim')
     setting = Setting.objects.get()
     category = Category.objects.all()
+    menu = Menu.objects.all()
     form = ContactFormu()
     context = {
         'setting': setting,
+        'menu': menu,
         'category': category,
         'form': form}
     return render(request, 'iletisim.html', context)
@@ -83,11 +93,13 @@ def iletisim(request):
 def category_contents(request, id, slug):
     category = Category.objects.all()
     setting = Setting.objects.get()
+    menu = Menu.objects.all()
     categorydata = Category.objects.get(pk=id)
     contents = Content.objects.filter(category_id=id)
     context = {'contents': contents,
                'category': category,
                'setting' : setting,
+               'menu': menu,
                'categorydata': categorydata,
                }
     return render(request, 'content-list.html', context)
@@ -97,6 +109,7 @@ def content_detail(request, id, slug):
     category = Category.objects.all()
     content = Content.objects.get(pk=id)
     setting = Setting.objects.get()
+    menu = Menu.objects.all()
     images = Images.objects.filter(content_id=id)
     comments = Comment.objects.filter(content_id=id, status='True')
     context = {'content': content,
@@ -104,6 +117,7 @@ def content_detail(request, id, slug):
                'images': images,
                'comments': comments,
                'setting' : setting,
+               'menu': menu,
                }
     return render(request, 'content_detail.html', context)
 
@@ -114,6 +128,7 @@ def content_search(request):
         if form.is_valid():
             category = Category.objects.all()
             setting = Setting.objects.get()
+            menu = Menu.objects.all()
             query = form.cleaned_data['query']
             catid = form.cleaned_data['catid']
             if catid == 0:
@@ -123,6 +138,7 @@ def content_search(request):
             context = {'contents': contents,
                        'category': category,
                        'setting' : setting,
+                       'menu': menu,
                        }
             return render(request, 'contents_search.html', context)
     return HttpResponseRedirect('/')
@@ -163,9 +179,11 @@ def login_view(request):
 
     category = Category.objects.all()
     setting = Setting.objects.get()
+    menu = Menu.objects.all()
     context = {
         'category': category,
         'setting' : setting,
+        'menu': menu,
     }
     return render(request, 'login.html', context)
 
@@ -190,8 +208,10 @@ def signup_view(request):
     form = SignUpForm()
     category = Category.objects.all()
     setting = Setting.objects.get()
+    menu = Menu.objects.all()
     context = {
         'setting' : setting,
+        'menu': menu,
         'category': category,
         'form': form,
     }
@@ -200,10 +220,12 @@ def signup_view(request):
 def faq(request):
     setting = Setting.objects.get()
     category = Category.objects.all()
+    menu = Menu.objects.all()
     faq = FAQ.objects.all().order_by('ordernumber')
     context = {
         'setting' : setting,
         'category': category,
+        'menu': menu,
         'faq': faq,
     }
     return render(request, 'faq.html', context)
@@ -211,9 +233,22 @@ def faq(request):
 def error(request):
     setting = Setting.objects.get()
     category = Category.objects.all()
+    menu = Menu.objects.all()
     context = {
         'setting': setting,
         'category': category,
+        'menu': menu,
     }
     return render(request, 'error_page.html', context)
+
+def menu(request, id, slug):
+    content = Content.objects.get(menu_id=id)
+    if content:
+        link='/content/'+str(content.id)+'/menu'
+        return HttpResponseRedirect(link)
+    else:
+        messages.warning(request, "Hata")
+        link = '/'
+        return HttpResponseRedirect(link)
+
 

@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import PasswordChangeForm
-from content.models import Category, Comment, Content, ContentForm, ContentImageForm, CImages
+from content.models import Category, Comment, Content, ContentForm, ContentImageForm, CImages, Menu
 from home.models import UserProfile, Setting
 from user.forms import ProfileUpdateForm, UserUpdateForm
 
@@ -13,11 +13,13 @@ from user.forms import ProfileUpdateForm, UserUpdateForm
 def index(request):
     category = Category.objects.all()
     setting = Setting.objects.get()
+    menu = Menu.objects.all()
     current_user = request.user
     profile = UserProfile.objects.get(user_id=current_user.id)
     context = {'category': category,
                'profile': profile,
-               'setting' : setting
+               'setting' : setting,
+               'menu': menu,
                }
     return render(request, 'user_profile.html', context)
 
@@ -34,13 +36,15 @@ def user_update(request):
     else:
         category = Category.objects.all()
         setting = Setting.objects.get()
+        menu = Menu.objects.all()
         user_form = UserUpdateForm(instance=request.user)
         profile_form = ProfileUpdateForm(instance=request.user.userprofile)
         context = {
             'category': category,
             'user_form': user_form,
             'profile_form': profile_form,
-            'setting' : setting
+            'setting' : setting,
+            'menu': menu,
 
         }
         return render(request, 'user_update.html', context)
@@ -61,12 +65,14 @@ def change_password(request):
     else:
         category = Category.objects.all()
         setting = Setting.objects.get()
+        menu = Menu.objects.all()
         form = PasswordChangeForm(request.user)
         return render(request, 'change_password.html',
                       {
                           'form': form,
                           'category': category,
-                          'setting' : setting
+                          'setting' : setting,
+                          'menu': menu,
                       })
 
 
@@ -74,12 +80,14 @@ def change_password(request):
 def comments(request):
     category = Category.objects.all()
     setting = Setting.objects.get()
+    menu = Menu.objects.all()
     current_user = request.user
     comments = Comment.objects.filter(user_id=current_user.id)
     context = {
         'category': category,
         'comments': comments,
-        'setting' : setting
+        'setting' : setting,
+        'menu': menu,
     }
     return render(request, 'user_comments.html', context)
 
@@ -96,12 +104,14 @@ def deletecomment(request, id):
 def contents(request):
     category = Category.objects.all()
     setting = Setting.objects.get()
+    menu = Menu.objects.all()
     current_user = request.user
     contents = Content.objects.all()
     context = {
         'category': category,
         'contents': contents,
-        'setting' : setting
+        'setting' : setting,
+        'menu': menu,
     }
     return render(request, 'user_contents.html', context)
 
@@ -129,11 +139,13 @@ def addcontent(request):
     else:
         category = Category.objects.all()
         setting = Setting.objects.get()
+        menu = Menu.objects.all()
         form = ContentForm()
         context = {
             'category': category,
             'form': form,
-            'setting' : setting
+            'setting' : setting,
+            'menu': menu,
         }
         return render(request, 'user_addcontent.html', context)
 
@@ -142,12 +154,14 @@ def addcontent(request):
 def contents(request):
     category = Category.objects.all()
     setting = Setting.objects.get()
+    menu = Menu.objects.all()
     current_user = request.user
     contents = Content.objects.filter(user_id=current_user.id)
     context = {
         'category': category,
         'contents': contents,
-        'setting' : setting
+        'setting' : setting,
+        'menu': menu,
     }
     return render(request, 'user_contents.html', context)
 
@@ -165,11 +179,13 @@ def contentedit(request, id):
     else:
         category = Category.objects.all()
         setting = Setting.objects.get()
+        menu = Menu.objects.all()
         form = ContentForm(instance=content)
         context = {
             'category': category,
             'form': form,
-            'setting' : setting
+            'setting' : setting,
+            'menu': menu,
         }
         return render(request, 'user_addcontent.html', context)
 

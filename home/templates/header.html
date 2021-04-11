@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-sm-6">
                 <i class="fa fa-envelope"></i>
-               <a href="mailto:safranboluyardimlasma@gmail.com">safranboluyardimlasma@gmail.com</a>
+                <a href="mailto:safranboluyardimlasma@gmail.com">safranboluyardimlasma@gmail.com</a>
             </div>
             <div class="col-sm-6">
                 <i class="fa fa-phone-alt"></i>
@@ -77,6 +77,7 @@
     {
         var selectedObj = ui.item;
     }
+
 </script>
 
 <!-- Bottom Bar Start -->
@@ -94,22 +95,31 @@
                 <form action="/search/" method="post">
                     {% csrf_token %}
                     <div class="search">
-                        <input id="query" name="query" class="input search-input" type="text" placeholder="Search">
-                        {% load mptt_tags %}
-                        <select name="catid" class="input search-categories">
-                            <option value="0">Tüm Kategoriler</option>
-                            {% recursetree category %}
-                            {% if node.is_leaf_node %}
-                            <option value="{{ node.id }}">{{ node.title }}</option>
-                            {% endif %}
-                            {% if not node.is_leaf_node %}
-                            <optgroup label="{{ node.title }}">
-                                {{ children }}
-                            </optgroup>
-                            {% endif %}
-                            {% endrecursetree %}
-                        </select>
-                        <button><i class="fa fa-search"></i></button>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input id="query" name="query" class="input search-input" type="text"
+                                           placeholder="Search">
+                                    <button><i class="fa fa-search"></i></button>
+                                </div>
+                                <div class="col-md-6">
+                                    {% load mptt_tags %}
+                                    <select name="catid" class="input search-categories">
+                                        <option value="0">Tüm Kategoriler</option>
+                                        {% recursetree category %}
+                                        {% if node.is_leaf_node %}
+                                        <option value="{{ node.id }}">{{ node.title }}</option>
+                                        {% endif %}
+                                        {% if not node.is_leaf_node %}
+                                        <optgroup label="{{ node.title }}">
+                                            {{ children }}
+                                        </optgroup>
+                                        {% endif %}
+                                        {% endrecursetree %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>

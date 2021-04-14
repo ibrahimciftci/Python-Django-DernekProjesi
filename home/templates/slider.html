@@ -1,42 +1,15 @@
 {% load static %}
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-4">
-            <nav>
-                <ul class="mcd-menu">
-                    {% load mptt_tags %}
-                    {% recursetree menu %}
-                    <li>
-                        <a href="/category/menu/{{ node.id }}"><i class="fa "></i><strong>{{ node.title }}</strong></a>
-                        {% if not node.is_leaf_node %}
-                        <ul class="children" style="list-style-type:none">
-                            <li><a href="#"><i class="fa "></i>{{ children }}</a></li>
-                        </ul>
-                        {% endif %}
-                    </li>
-                    {% endrecursetree %}
-                </ul>
-            </nav>
-        </div>
-        <div class="col-md-8" align="center">
             <button class="slick-prev slick-arrow" aria-label="Previous" type="button" style="">Previous</button>
             <div class="header-slider normal-slider">  <!-- slider burada çalışıyor -->
 
                 {% for rs in sliderdata %}
                 <div class="header-slider-item">
                     <a href="#"><img src=" {{ rs.image.url }} " alt="Slider Image"/></a>
-                    <div class="banner-caption text-center">
-                        <h2>
-                            {{ rs.title }}
-                        </h2>
-                    </div>
                     <br><br>
                 </div>
                 {% endfor %}
             </div>
             <button class="slick-next slick-arrow" aria-label="Next" type="button" style="">Next</button>
-        </div>
-    </div>
-</div>
+
 

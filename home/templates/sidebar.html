@@ -1,26 +1,17 @@
-{% load static %}
-{% load mptt_tags %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-4">
-            <nav>
-                <ul class="mcd-menu">
-                    <li>
-                        {% load mptt_tags %}
-                        {% recursetree category %}
-                    <li>
-                        <a href="/category/{{ node.id }}/{{ node.slug }}"><i class="fa "></i><strong>{{ node.title }}</strong></a>
-                        {% if not node.is_leaf_node %}
-                        <ul class="children" style="list-style-type:none">
-                            <li><a href="/category/{{ node.slug }}"><i class="fa "></i>{{ children }}</a></li>
-                        </ul>
-                        {% endif %}
-                    </li>
-                    {% endrecursetree %}
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-</div>
 
+    <nav>
+        <ul class="mcd-menu">
+            {% load mptt_tags %}
+            {% recursetree menu %}
+            <li>
+                <a href="/content/{{ node.id }} / {{ node.slug }}"><i class="fa "></i><strong>{{ node.title }}</strong></a>
+
+                {% if not node.is_leaf_node %}
+                <ul class="children" style="list-style-type:none">
+                    <li><a href="#"><i class="fa "></i>{{ children }}</a></li>
+                </ul>
+                {% endif %}
+            </li>
+            {% endrecursetree %}
+        </ul>
+    </nav>

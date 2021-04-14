@@ -251,4 +251,19 @@ def menu(request, id, slug):
         link = '/'
         return HttpResponseRedirect(link)
 
+def menu_content(request, id, slug):
+    category = Category.objects.all()
+    content = Content.objects.get(pk=id)
+    setting = Setting.objects.get()
+    menu = Menu.objects.all()
+    images = Images.objects.filter(content_id=id)
+    comments = Comment.objects.filter(content_id=id, status='True')
+    context = {'content': content,
+               'category': category,
+               'images': images,
+               'comments': comments,
+               'setting' : setting,
+               'menu': menu,
+               }
+    return render(request, 'menu_content.html', context)
 

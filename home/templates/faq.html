@@ -25,11 +25,14 @@
     </div>
 </div>
 <!-- Breadcrumb End -->
-<br> <br>
+<br>
 <div class="section">
     <div class="container">
         <div class="row">
-            <div id="accordion">
+            <div class="col-md-4">
+                  {% include "sidebar.html" %}
+            </div>
+            <div id="accordion" class="col-md-6">
                 {% for rs in faq %}
                 <h3>{{ rs.question }}</h3>
                 <div>

@@ -38,14 +38,7 @@
                                 <div class="slider-nav-img"><img src="{{ rs.image.url }}" alt="Product Image"></div>
                                 {% endfor %}
                             </div>
-                            <div class="product-slider-single-nav normal-slider">
-                                <div class="slider-nav-img"><img src="{{ content.image.url }}" alt="Product Image">
-                                </div>
-                                {% for rs in images %}
-                                <div class="slider-nav-img"><img src="{{ rs.image.url }}" alt="Product Image"></div>
-                                {% endfor %}
 
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -110,7 +103,7 @@
                             <br>
                             <div class="col-sm-12">
                                                 <textarea class="input" name="comment" id="id_comment"
-                                                          placeholder="Yorum Yap" rows="10" cols="50"></textarea>
+                                                          placeholder="Yorum Yap" rows="5" cols="50"></textarea>
                             </div>
                             {% if user.id is not None %}
                             <div class="col-sm-12">

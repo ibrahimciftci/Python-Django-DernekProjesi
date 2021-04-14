@@ -27,11 +27,14 @@
 <div class="contact">
     <div class="container-fluid">
         <div class="row ">
-            <div class="col-lg-8">
+               <div class="col-md-3">
+                  {% include "sidebar.html" %}
+            </div>
+            <div class="col-md-5">
                 {{ setting.contact | safe }}
             </div>
 
-            <div class="col-lg-4">
+            <div class="col-md-4">
                 <div class="contact-form">
                     {% if messages %}
                     {% for message in messages %}

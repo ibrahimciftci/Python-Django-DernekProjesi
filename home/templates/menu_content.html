@@ -1,0 +1,123 @@
+{% extends "homebase.html" %}
+
+{% block title %}  {{ setting.company }} / {{ content.title }} {% endblock %}
+{% block keywords %} {{ content.keywords }} {% endblock %}
+{% block description %} {{ content.description }} {% endblock %}
+
+{% block head %}
+<link rel='shortcut icon' type='image/x-icon' href='{{setting.icon.url}}'>
+{% endblock %}
+
+
+{% block content %}
+<!-- Breadcrumb Start -->
+<div class="breadcrumb-wrap">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Anasayfa</a></li>
+            <li class="breadcrumb-item active"><a
+                    href="/category/{{ content.category_id }}/{{ content.category.slug }}">{{ content.category }}</a>
+            </li>
+            <li class="breadcrumb-item active">{{ content.title }}</li>
+        </ul>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+
+<!-- Product Detail Start -->
+<div class="product-detail">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="product-detail-top">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="product-slider-single normal-slider">
+                                <img src="{{ content.image.url }}" alt="Product Image">
+                                {% for rs in images %}
+                                <div class="slider-nav-img"><img src="{{ rs.image.url }}" alt="Product Image"></div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="col-md-12">
+                    <div class="tab-content">
+                        <div id="description" class="container tab-pane active">
+                            <p>{{ content.title }}</p>
+                            <p>{{ content.detail |safe }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="col-md-6">
+                   <div class="" style="color:white; background-color:#FF6F61; text-align: center;">
+                       <h4>Yorumlar</h4>
+                   </div>
+                    <br>
+                    {% for rs in comments %}
+                    <div class="single-review">
+                        <div class="review-heading">
+                            <div><a href="#"><i class="fa fa-user-o"></i><b>{{ rs.user.username }}</b>
+                            </a></div>
+                            <div><a href="#"><i class="fa fa-clock-o"></i>{{ rs.create_at}}
+                            </a></div>
+                        </div>
+                        <div class="review-body"><h4>{{ rs.subject }}</h4>
+                            <b>{{ rs.comment }}</b>
+                        </div>
+                    </div>
+                    <br> <br>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-6">
+                     <div class="" style="color:white; background-color:#FF6F61; text-align: center;">
+                       <h4>Yorum Yap</h4>
+                   </div>
+                    <br>
+                    <div class="row form">
+                        {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}" role="alert">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                        <form class="review-form"
+                              action="/content/addcomment/{{ content.id }}"
+                              method="POST">
+                            {% csrf_token %}
+                            <div class="col-sm-6">
+                                <input class="input" type="text" name="subject"
+                                       id="id_subject"
+                                       placeholder="Konu"></input>
+                            </div>
+                            <br>
+                            <div class="col-sm-12">
+                                                <textarea class="input" name="comment" id="id_comment"
+                                                          placeholder="Yorum Yap" rows="10" cols="50"></textarea>
+                            </div>
+                            {% if user.id is not None %}
+                            <div class="col-sm-12">
+                                <button>Gönder</button>
+                                {% else %}
+                                Yorum yapabilmek için <a href="/login">Giriş</a> yapın.
+                                {% endif %}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Product Detail End -->
+{% endblock %}
+

@@ -32,13 +32,7 @@
                         <div class="product-item">
                             <div class="product-title">
                                 <a href="#">{{ rs.title }}</a>
-                                <div class="ratting">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
+
                             </div>
                             <div class="product-image">
                                 <a href="/content/{{ rs.id }}/{{ rs.slug }}">
@@ -46,15 +40,10 @@
                                 </a>
 
                             </div>
-                            <div class="product-price">
-                                <h3><span></span></h3>
-                                <a class="btn" href="/content/{{ rs.id }}/{{ rs.slug }}"><i class="fa fa-heart"></i>{{ rs.description }}</a>
-                            </div>
+
                         </div>
                     </div>
                     {% endfor %}
-
-
                     <!-- Pagination Start -->
                     <div class="col-md-12">
                         <nav aria-label="Page navigation example">

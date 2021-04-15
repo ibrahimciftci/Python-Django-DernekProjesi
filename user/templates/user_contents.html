@@ -51,8 +51,8 @@
                                     <td><img
                                             src="{{ rs.image.url }}" width="100px" height="80px"></td>
                                     <td>{{ rs.title }}</td>
-                                    <td><a href="javascript:;"
-                                           onclick="window.open('user/contentaddimage/{{ rs.id }}', 'galeri', 'height=600,width=800,top=50,left=150')">Galeri</a>
+                                    <td>
+                                        <a href="javascript:;" onclick="window.open('/user/contentaddimage/{{ rs.id }}', 'galeri', 'height=600,width=800,top=50,left=150')">Galeri</a>
                                     </td>
                                     <td>{{ rs.category.title }}</td>
                                     <td>{{ rs.status }}</td>

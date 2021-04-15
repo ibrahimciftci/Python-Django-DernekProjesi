@@ -18,7 +18,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class ContentAdmin(admin.ModelAdmin):
     list_display = ['title', 'image_tag']
-    readonly_fields = ('image_tag','catimg_tag',)
+    readonly_fields = ('image_tag', 'catimg_tag',)
     inlines = [ContentImageInline]
     prepopulated_fields = {'slug': ('title',)}
 
@@ -78,8 +78,9 @@ class MenuAdmin(DraggableMPTTAdmin):
 
 class AnasayfaIcerikAdmin(admin.ModelAdmin):
     list_display = ['title', 'image_tag']
-    readonly_fields = ('image_tag','catimg_tag',)
+    readonly_fields = ('image_tag', 'catimg_tag',)
     prepopulated_fields = {'slug': ('title',)}
+
 
 admin.site.register(Menu, MenuAdmin)
 admin.site.register(Category, CategoryAdmin2)

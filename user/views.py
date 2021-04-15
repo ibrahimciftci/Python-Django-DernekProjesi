@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import PasswordChangeForm
-from content.models import Category, Comment, Content, ContentForm, ContentImageForm, CImages, Menu
+from content.models import Category, Comment, Content, ContentForm, ContentImageForm, Images, Menu
 from home.models import UserProfile, Setting
 from user.forms import ProfileUpdateForm, UserUpdateForm
 
@@ -202,7 +202,7 @@ def contentaddimage(request, id):
         lasturl = request.META.get('HTTP_REFERER')
         form = ContentImageForm(request.POST, request.FILES)
         if form.is_valid():
-            data = CImages()
+            data = Images()
             data.title = form.cleaned_data['title']
             data.content_id = id
             data.image = form.cleaned_data['image']
@@ -212,7 +212,7 @@ def contentaddimage(request, id):
             return HttpResponseRedirect(lasturl)
     else:
         content = Content.objects.get(id=id)
-        images = CImages.objects.filter(content_id=id)
+        images = Images.objects.filter(content_id=id)
         form = ContentImageForm()
     context = {
         'content': content,

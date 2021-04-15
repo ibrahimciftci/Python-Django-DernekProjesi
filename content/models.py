@@ -8,13 +8,14 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from mptt.models import MPTTModel, TreeForeignKey
 from lib2to3.fixes.fix_idioms import TYPE
 
+
 class Menu(MPTTModel):
     STATUS = (
-        ('True','Evet'),
-        ('False','Hayır'),
+        ('True', 'Evet'),
+        ('False', 'Hayır'),
     )
-    parent = TreeForeignKey('self',blank=True, null=True, related_name='children',on_delete=models.CASCADE)
-    title = models.CharField(max_length=100,unique=True)
+    parent = TreeForeignKey('self', blank=True, null=True, related_name='children', on_delete=models.CASCADE)
+    title = models.CharField(max_length=100, unique=True)
     link = models.CharField(max_length=100, blank=True)
     status = models.CharField(max_length=10, choices=STATUS)
     create_at = models.DateTimeField(auto_now_add=True)
@@ -111,7 +112,6 @@ class Content(models.Model):
         return reverse('content_detail', kwargs={'slug': self.slug})
 
 
-
 class Images(models.Model):
     content = models.ForeignKey(Content, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
@@ -167,24 +167,11 @@ class ContentForm(ModelForm):
         }
 
 
-class CImages(models.Model):
-    content = models.ForeignKey(Content, on_delete=models.CASCADE)
-    title = models.CharField(max_length=50, blank=True)
-    image = models.ImageField(blank=True, upload_to='images/')
-
-    def _str_(self):
-        return self.title
-
-    def image_tag(self):
-        return mark_safe('<img src="{}"height="50"/>'.format(self.image.url))
-
-    image_tag.short_description = 'Image'
-
-
 class ContentImageForm(ModelForm):
     class Meta:
-        model = CImages
+        model = Images
         fields = ['title', 'image']
+
 
 class AnasayfaIcerik(models.Model):
     STATUS = (
@@ -214,4 +201,3 @@ class AnasayfaIcerik(models.Model):
 
     def get_absolute_url(self):
         return reverse('content_detail', kwargs={'slug': self.slug})
-

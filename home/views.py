@@ -241,7 +241,7 @@ def error(request):
     }
     return render(request, 'error_page.html', context)
 
-def menu(request, id, slug):
+def menu(request, id):
     content = Content.objects.get(menu_id=id)
     if content:
         link='/content/'+str(content.id)+'/menu'

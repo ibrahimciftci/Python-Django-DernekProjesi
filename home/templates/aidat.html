@@ -1,0 +1,92 @@
+{% extends "homebase.html" %}
+
+{% block title %}  {{ setting.company }}  {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
+
+{% block head %}
+<link rel='shortcut icon' type='image/x-icon' href='{{setting.icon.url}}'>
+
+{% endblock %}
+
+
+{% block content %}
+<!-- Breadcrumb Start -->
+<div class="breadcrumb-wrap">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Anasayfa</a></li>
+            <li class="breadcrumb-item"><a href="#">Aidat</a></li>
+        </ul>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div>
+                {% include "sidebar.html" %}
+            </div>
+        </div>
+        <div class="col-md-8">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        AİDAT
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-xs-4">
+                        Kart Sahibi: <input type="text" class="sinif" id="kartSahibi" maxlength="25" size="25"
+                                            placeholder="Adınızı Girin...">
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-xs-1">
+                        Kart No: <input type="text" class="sinif" id="a" maxlength="4" size="4" placeholder="* * * *">
+                    </div>
+                    --
+                    <div class="col-xs-1">
+                        <input type="text" class="sinif" id="b" maxlength="4" size="4" placeholder="* * * *">
+                    </div>
+                    --
+                    <div class="col-xs-1">
+                        <input type="text" class="sinif" id="c" maxlength="4" size="4" placeholder="* * * *">
+                    </div>
+                    --
+                    <div class="col-xs-1">
+                        <input type="text" class="sinif" id="d" maxlength="4" size="4" placeholder="* * * *">
+                    </div>
+                    <div class="col-xs-9">
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-md-2">
+                        CVV: <input type="text" class="sinif" id="cvv" maxlength="3" size="3" placeholder="CVV">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                         <input type="submit" value="ÖDEME YAP">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <br> <br> <br><br><br>
+</div>
+{% endblock %}
+
+

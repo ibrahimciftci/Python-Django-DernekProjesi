@@ -4,7 +4,7 @@
         {% if menu %}
         {% recursetree menu %}
         <li>
-            <a href="/menu/{{ node.id }} / {{ node.slug }}"><i class="fa "></i><strong>{{ node.title }}</strong></a>
+            <a href="/menu/{{ node.id }}"><i class="fa "></i><strong>{{ node.title }}</strong></a>
 
             {% if not node.is_leaf_node %}
             <ul class="children" style="list-style-type:none">

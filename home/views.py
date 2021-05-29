@@ -52,6 +52,28 @@ def hizmetlerimiz(request):
         'page': 'hizmetlerimiz'}
     return render(request, 'hizmetlerimiz.html', context)
 
+def bagis(request):
+    setting = Setting.objects.get()
+    category = Category.objects.all()
+    menu = Menu.objects.all()
+    context = {
+        'setting': setting,
+        'menu': menu,
+        'category': category,
+        'page': 'bagis'}
+    return render(request, 'bagis.html', context)
+
+def aidat(request):
+    setting = Setting.objects.get()
+    category = Category.objects.all()
+    menu = Menu.objects.all()
+    context = {
+        'setting': setting,
+        'menu': menu,
+        'category': category,
+        'page': 'aidat'}
+    return render(request, 'aidat.html', context)
+
 
 def referanslar(request):
     setting = Setting.objects.get()
